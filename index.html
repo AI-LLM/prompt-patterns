@@ -6,6 +6,60 @@
 <html>
 <head>
 	<title>Prompt Patterns</title>
+	<style type="text/css">
+/* grid container */
+.left-sidebar-grid {
+    display:grid;
+    grid-template-areas:
+        'header'
+        'main-content'
+        'left-sidebar'
+        'footer';
+}
+
+/* general column padding */
+.left-sidebar-grid > * {
+    padding:5px;
+}
+
+/* assign columns to grid areas */
+.left-sidebar-grid > .header {
+    grid-area:header;
+}
+.left-sidebar-grid > .main-content {
+    grid-area:main-content;
+}
+.left-sidebar-grid > .left-sidebar {
+    grid-area:left-sidebar;
+}
+.left-sidebar-grid > .right-sidebar {
+    grid-area:right-sidebar;
+}
+.left-sidebar-grid > .footer {
+    grid-area:footer;
+    background:lightgray;
+}
+#properties tr td:first-child {
+	width: 36px;
+	word-break: break-all;
+}
+
+/* tablet breakpoint */
+@media (min-width:768px) {
+    .left-sidebar-grid {
+        /*grid-template-columns:repeat(3, 1fr);
+        grid-template-areas:
+            'header header header'
+            'left-sidebar main-content main-content'
+            'footer footer footer';*/
+		grid-template-columns: 220px 1fr;
+        grid-template-areas:
+            'header header'
+            'left-sidebar main-content'
+            'footer footer';
+    }
+}
+	</style>
 
 	<!-- Sets the basepath for the library if not in same directory -->
 	<script type="text/javascript">
@@ -61,7 +115,19 @@
 
 				// Enables rubberband selection
 				new mxRubberband(graph);
-				
+
+				document.getElementById("controls").appendChild(mxUtils.button('View XML', function()
+				{
+					var encoder = new mxCodec();
+					var node = encoder.encode(graph.getModel());
+					mxUtils.popup(mxUtils.getPrettyXml(node), true);
+				}));
+				document.getElementById("controls").appendChild(mxUtils.button('Layout', function()
+				{
+					executeLayout();
+				}));
+				var doc = mxUtils.createXmlDocument();
+
 				var style = graph.getStylesheet().getDefaultEdgeStyle();
 				//style[mxConstants.STYLE_LABEL_BACKGROUNDCOLOR] = 'white';								
 				style = mxUtils.clone(style);
@@ -102,16 +168,17 @@
 						
 						if (overlays == null)
 						{
-							addOverlayIssue(cell);
-							console.log(cell.style)
-							if (cell.style === "issue")
-							{
-								addOverlayPosition(cell);
-							}
-							if (cell.style === "position")
-							{
-								addOverlayPro(cell);
-								addOverlayCon(cell);
+							if (!cell.isEdge()){
+								addOverlayIssue(cell);
+								if (cell.style === "issue")
+								{
+									addOverlayPosition(cell);
+								}
+								if (cell.style === "position")
+								{
+									addOverlayPro(cell);
+									addOverlayCon(cell);
+								}
 							}
 						}
 						else
@@ -138,10 +205,12 @@
 						var geo = graph.getCellGeometry(cell);
 						
 						var v2;
+						var p = doc.createElement('issue');
+						p.setAttribute('title', 'issue title');
 						
 						executeLayout(function()
 						{
-							v2 = graph.insertVertex(parent, null, 'Issue', geo.x, geo.y, 120, 60, 'issue');
+							v2 = graph.insertVertex(parent, null, p, geo.x, geo.y, 120, 60, 'issue');
 							//addOverlay(v2);
 							graph.view.refresh(v2);
 							var e1 = graph.insertEdge(parent, null, '', cell, v2, 'ibis');
@@ -184,10 +253,12 @@
 						var geo = graph.getCellGeometry(cell);
 						
 						var v2;
+						var p = doc.createElement('pro');
+						p.setAttribute('title', 'pro title');
 						
 						executeLayout(function()
 						{
-							v2 = graph.insertVertex(parent, null, 'Pro', geo.x, geo.y, 120, 60, 'pro');
+							v2 = graph.insertVertex(parent, null, p, geo.x, geo.y, 120, 60, 'pro');
 							//addOverlay(v2);
 							graph.view.refresh(v2);
 							var e1 = graph.insertEdge(parent, null, '', cell, v2, 'ibis');
@@ -230,10 +301,13 @@
 						var geo = graph.getCellGeometry(cell);
 						
 						var v2;
+						var p = doc.createElement('con');
+						p.setAttribute('title', 'con title');
+
 						
 						executeLayout(function()
 						{
-							v2 = graph.insertVertex(parent, null, 'Con', geo.x, geo.y, 120, 60, 'con');
+							v2 = graph.insertVertex(parent, null, p, geo.x, geo.y, 120, 60, 'con');
 							//addOverlay(v2);
 							graph.view.refresh(v2);
 							var e1 = graph.insertEdge(parent, null, '', cell, v2, 'ibis');
@@ -277,10 +351,14 @@
 						var geo = graph.getCellGeometry(cell);
 						
 						var v2;
+						var p = doc.createElement('position');
+						p.setAttribute('title', 'position title');
+						p.setAttribute('model', 'pattern model');
 						
 						executeLayout(function()
 						{
-							v2 = graph.insertVertex(parent, null, 'Position', geo.x, geo.y, 120, 60, 'position');
+
+							v2 = graph.insertVertex(parent, null, p, geo.x, geo.y, 120, 60, 'position');
 							//addOverlay(v2);
 							graph.view.refresh(v2);
 							var e1 = graph.insertEdge(parent, null, '', cell, v2, 'ibis');
@@ -310,14 +388,64 @@
 					// Sets the overlay for the cell in the graph
 					graph.addCellOverlay(cell, overlay);
 				}
-								
+
+				// Overrides method to provide a cell label in the display
+				graph.convertValueToString = function(cell)
+				{
+					if (mxUtils.isNode(cell.value))
+					{
+						//if (cell.value.nodeName.toLowerCase() == 'position')
+						//{
+							return cell.getAttribute('title', '');
+						//}
+					}
+
+					return '';
+				};
+
+				// Overrides method to store a cell label in the model
+				var cellLabelChanged = graph.cellLabelChanged;
+				graph.cellLabelChanged = function(cell, newValue, autoSize)
+				{
+					if (mxUtils.isNode(cell.value) 
+						//&& cell.value.nodeName.toLowerCase() == 'position'
+						)
+					{
+						// Clones the value for correct undo/redo
+						var elt = cell.value.cloneNode(true);
+
+						elt.setAttribute('title', newValue);
+
+						newValue = elt;
+						autoSize = true;
+					}
+					
+					cellLabelChanged.apply(this, arguments);
+				};
+
+				// Overrides method to create the editing value
+				var getEditingValue = graph.getEditingValue;
+				graph.getEditingValue = function(cell)
+				{
+					if (mxUtils.isNode(cell.value) 
+						//&& cell.value.nodeName.toLowerCase() == 'position'
+						)
+					{
+						return cell.getAttribute('title', '');
+					}
+				};
+				
 				// Adds cells to the model in a single step
 				graph.getModel().beginUpdate();
-				var v1;
+				var r1,r2;
 				try
 				{
-					v1 = graph.insertVertex(parent, null, 'Issue', 0, 0, 120, 60, 'issue');
-					//addOverlay(v1);
+					var p = doc.createElement('issue');
+					p.setAttribute('title', 'issue title');
+
+					r1 = graph.insertVertex(parent, null, p, 0, 0, 120, 60, 'issue');
+					//addOverlay(r1);
+					//r2 = graph.insertVertex(parent, null, p, 0, 300, 120, 60, 'issue');
 				}
 				finally
 				{
@@ -337,7 +465,8 @@
 							change();
 						}
 						
-		    			layout.execute(graph.getDefaultParent(), v1);
+		    			layout.execute(graph.getDefaultParent(), r1);
+						//layout.execute(graph.getDefaultParent(), r2);
 					}
 					catch (e)
 					{
@@ -379,6 +508,115 @@
 				{
 					executeLayout();
 				});
+
+				// Implements a properties panel that uses
+				// mxCellAttributeChange to change properties
+				graph.getSelectionModel().addListener(mxEvent.CHANGE, function(sender, evt)
+				{
+					selectionChanged(graph);
+				});
+
+				selectionChanged(graph);
+
+			}
+			/**
+			 * Updates the properties panel
+			 */
+			function selectionChanged(graph)
+			{
+				var div = document.getElementById('properties');
+
+				// Forces focusout in IE
+				graph.container.focus();
+
+				// Clears the DIV the non-DOM way
+				div.innerHTML = '';
+
+				// Gets the selection cell
+				var cell = graph.getSelectionCell();
+
+				if (cell == null)
+				{
+					mxUtils.writeln(div, 'Nothing selected.');
+				}
+				else
+				{
+					// Writes the title
+					var center = document.createElement('center');
+					mxUtils.writeln(center, cell.value.nodeName + ' (' + cell.id + ')');
+					div.appendChild(center);
+					mxUtils.br(div);
+
+					// Creates the form from the attributes of the user object
+					var form = new mxForm();
+	
+					var attrs = cell.value.attributes;
+					
+					for (var i = 0; i < attrs.length; i++)
+					{
+						createTextField(graph, form, cell, attrs[i]);
+					}
+	
+					div.appendChild(form.getTable());
+					mxUtils.br(div);
+				}
+			}
+
+			/**
+			 * Creates the textfield for the given property.
+			 */
+			function createTextField(graph, form, cell, attribute)
+			{
+				var input = form.addTextarea(attribute.nodeName, attribute.nodeValue, 20);
+
+				var applyHandler = function()
+				{
+					var newValue = input.value || '';
+					var oldValue = cell.getAttribute(attribute.nodeName, '');
+
+					if (newValue != oldValue)
+					{
+						graph.getModel().beginUpdate();
+                        
+                        try
+                        {
+                        	var edit = new mxCellAttributeChange(
+ 		                           cell, attribute.nodeName,
+ 		                           newValue);
+                           	graph.getModel().execute(edit);
+                           	graph.updateCellSize(cell);
+                        }
+                        finally
+                        {
+                            graph.getModel().endUpdate();
+                        }
+					}
+				}; 
+
+				mxEvent.addListener(input, 'keypress', function (evt)
+				{
+					// Needs to take shift into account for textareas
+					if (evt.keyCode == /*enter*/13 &&
+						!mxEvent.isShiftDown(evt))
+					{
+						input.blur();
+					}
+				});
+
+				if (mxClient.IS_IE)
+				{
+					mxEvent.addListener(input, 'focusout', applyHandler);
+				}
+				else
+				{
+					// Note: Known problem is the blurring of fields in
+					// Firefox by changing the selection, in which case
+					// no event is fired in FF and the change is lost.
+					// As a workaround you should use a local variable
+					// that stores the focused field and invoke blur
+					// explicitely where we do the graph.focus above.
+					mxEvent.addListener(input, 'blur', applyHandler);
+				}
 			}
 		};
 	</script>
@@ -386,10 +624,20 @@
 
 <!-- Page passes the container for the graph to the program -->
 <body onload="main(document.getElementById('graphContainer'))">
-
-	<!-- Creates a container for the graph with a grid wallpaper -->
-	<div id="graphContainer"
-		style="position:relative;overflow:hidden;width:100%;height:100%;background:url('images/grid.gif');cursor:default;">
+	<div class="left-sidebar-grid">
+		<header class="header"><h1>Prompt Patterns</h1></header>
+		<main class="main-content">
+			<div id="graphContainer"
+				style="position:relative;overflow:hidden;width:100%;height:100%;cursor:default;">
+			</div>	
+		</main>
+		<section class="left-sidebar">
+			<div id="controls"></div>
+			<div id="properties"
+				style="border: solid 1px black;">
+			</div>
+		</section>
+		<footer class="footer">&copy;2023 Wei Lu</footer>
 	</div>
 </body>
 </html>
