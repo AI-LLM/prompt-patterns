@@ -62,14 +62,73 @@
 				// Enables rubberband selection
 				new mxRubberband(graph);
 				
+				var style = graph.getStylesheet().getDefaultEdgeStyle();
+				//style[mxConstants.STYLE_LABEL_BACKGROUNDCOLOR] = 'white';								
+				style = mxUtils.clone(style);
+				style[mxConstants.STYLE_STARTARROW] = mxConstants.ARROW_CLASSIC;
+				style[mxConstants.STYLE_ENDARROW] = mxConstants.NONE;
+				graph.getStylesheet().putCellStyle('ibis', style);
+
+				style = graph.getStylesheet().getDefaultVertexStyle();
+				style = mxUtils.clone(style);
+				style[mxConstants.STYLE_SHAPE] = mxConstants.SHAPE_RECTANGLE;
+				style[mxConstants.STYLE_ROUNDED] = true;
+				//style[mxConstants.STYLE_OPACITY] = 50;
+				//style[mxConstants.STYLE_FONTCOLOR]= '#774400';
+				style[mxConstants.STYLE_FILLCOLOR] = 'white';
+				style[mxConstants.STYLE_GRADIENTCOLOR] = 'lightBlue';//'deepskyblue';
+				//style[mxConstants.OUTLINE_COLOR] = 'gray';
+				style[mxConstants.STYLE_FONTSIZE] = 14;
+				graph.getStylesheet().putCellStyle('issue',style);
+				style = mxUtils.clone(style);
+				style[mxConstants.STYLE_GRADIENTCOLOR] = 'gold';
+				graph.getStylesheet().putCellStyle('position',style);
+				style = mxUtils.clone(style);
+				style[mxConstants.STYLE_GRADIENTCOLOR] = 'lawnGreen';
+				graph.getStylesheet().putCellStyle('pro',style);
+				style = mxUtils.clone(style);
+				style[mxConstants.STYLE_GRADIENTCOLOR] = 'lightCoral';
+				graph.getStylesheet().putCellStyle('con',style);
+
+				// Installs a handler for click events in the graph
+				// that toggles the overlay for the respective cell
+				graph.addListener(mxEvent.CLICK, function(sender, evt)
+				{
+					var cell = evt.getProperty('cell');
+					
+					if (cell != null)
+					{
+						var overlays = graph.getCellOverlays(cell);
+						
+						if (overlays == null)
+						{
+							addOverlayIssue(cell);
+							console.log(cell.style)
+							if (cell.style === "issue")
+							{
+								addOverlayPosition(cell);
+							}
+							if (cell.style === "position")
+							{
+								addOverlayPro(cell);
+								addOverlayCon(cell);
+							}
+						}
+						else
+						{
+							graph.removeCellOverlays(cell);
+						}
+					}
+				});
+
 				// Gets the default parent for inserting new cells. This
 				// is normally the first child of the root (ie. layer 0).
 				var parent = graph.getDefaultParent();
 				
-				var addOverlay = function(cell)
+				var addOverlayIssue = function(cell)
 				{
 					// Creates a new overlay with an image and a tooltip
-					var overlay = new mxCellOverlay(new mxImage('images/add.png', 24, 24), 'Add outgoing');
+					var overlay = new mxCellOverlay(new mxImage('images/information.png', 24, 24), 'Add issue/question', mxConstants.ALIGN_CENTER, mxConstants.ALIGN_BOTTOM);
 					overlay.cursor = 'hand';
 
 					// Installs a handler for clicks on the overlay							
@@ -82,10 +141,149 @@
 						
 						executeLayout(function()
 						{
-							v2 = graph.insertVertex(parent, null, 'World!', geo.x, geo.y, 80, 30);
-							addOverlay(v2);
+							v2 = graph.insertVertex(parent, null, 'Issue', geo.x, geo.y, 120, 60, 'issue');
+							//addOverlay(v2);
 							graph.view.refresh(v2);
-							var e1 = graph.insertEdge(parent, null, '', cell, v2);
+							var e1 = graph.insertEdge(parent, null, '', cell, v2, 'ibis');
+						}, function()
+						{
+							graph.scrollCellToVisible(v2);
+						});
+					});
+					
+					// Special CMS event
+					overlay.addListener('pointerdown', function(sender, eo)
+					{
+						var evt2 = eo.getProperty('event');
+						var state = eo.getProperty('state');
+						
+						graph.popupMenuHandler.hideMenu();
+						graph.stopEditing(false);
+						
+						var pt = mxUtils.convertPoint(graph.container,
+								mxEvent.getClientX(evt2), mxEvent.getClientY(evt2));
+						graph.connectionHandler.start(state, pt.x, pt.y);
+						graph.isMouseDown = true;
+						graph.isMouseTrigger = mxEvent.isMouseEvent(evt2);
+						mxEvent.consume(evt2);
+					});
+					
+					// Sets the overlay for the cell in the graph
+					graph.addCellOverlay(cell, overlay);
+				}
+				var addOverlayPro = function(cell)
+				{
+					// Creates a new overlay with an image and a tooltip
+					var overlay = new mxCellOverlay(new mxImage('images/add.png', 24, 24), 'Add positive argument', mxConstants.ALIGN_RIGHT, mxConstants.ALIGN_BOTTOM);
+					overlay.cursor = 'hand';
+
+					// Installs a handler for clicks on the overlay							
+					overlay.addListener(mxEvent.CLICK, function(sender, evt2)
+					{
+						graph.clearSelection();
+						var geo = graph.getCellGeometry(cell);
+						
+						var v2;
+						
+						executeLayout(function()
+						{
+							v2 = graph.insertVertex(parent, null, 'Pro', geo.x, geo.y, 120, 60, 'pro');
+							//addOverlay(v2);
+							graph.view.refresh(v2);
+							var e1 = graph.insertEdge(parent, null, '', cell, v2, 'ibis');
+						}, function()
+						{
+							graph.scrollCellToVisible(v2);
+						});
+					});
+					
+					// Special CMS event
+					overlay.addListener('pointerdown', function(sender, eo)
+					{
+						var evt2 = eo.getProperty('event');
+						var state = eo.getProperty('state');
+						
+						graph.popupMenuHandler.hideMenu();
+						graph.stopEditing(false);
+						
+						var pt = mxUtils.convertPoint(graph.container,
+								mxEvent.getClientX(evt2), mxEvent.getClientY(evt2));
+						graph.connectionHandler.start(state, pt.x, pt.y);
+						graph.isMouseDown = true;
+						graph.isMouseTrigger = mxEvent.isMouseEvent(evt2);
+						mxEvent.consume(evt2);
+					});
+					
+					// Sets the overlay for the cell in the graph
+					graph.addCellOverlay(cell, overlay);
+				}
+				var addOverlayCon = function(cell)
+				{
+					// Creates a new overlay with an image and a tooltip
+					var overlay = new mxCellOverlay(new mxImage('images/forbidden.png', 24, 24), 'Add negative argument', mxConstants.ALIGN_RIGHT, mxConstants.ALIGN_TOP);
+					overlay.cursor = 'hand';
+
+					// Installs a handler for clicks on the overlay							
+					overlay.addListener(mxEvent.CLICK, function(sender, evt2)
+					{
+						graph.clearSelection();
+						var geo = graph.getCellGeometry(cell);
+						
+						var v2;
+						
+						executeLayout(function()
+						{
+							v2 = graph.insertVertex(parent, null, 'Con', geo.x, geo.y, 120, 60, 'con');
+							//addOverlay(v2);
+							graph.view.refresh(v2);
+							var e1 = graph.insertEdge(parent, null, '', cell, v2, 'ibis');
+						}, function()
+						{
+							graph.scrollCellToVisible(v2);
+						});
+					});
+					
+					// Special CMS event
+					overlay.addListener('pointerdown', function(sender, eo)
+					{
+						var evt2 = eo.getProperty('event');
+						var state = eo.getProperty('state');
+						
+						graph.popupMenuHandler.hideMenu();
+						graph.stopEditing(false);
+						
+						var pt = mxUtils.convertPoint(graph.container,
+								mxEvent.getClientX(evt2), mxEvent.getClientY(evt2));
+						graph.connectionHandler.start(state, pt.x, pt.y);
+						graph.isMouseDown = true;
+						graph.isMouseTrigger = mxEvent.isMouseEvent(evt2);
+						mxEvent.consume(evt2);
+					});
+					
+					// Sets the overlay for the cell in the graph
+					graph.addCellOverlay(cell, overlay);
+				}
+
+				var addOverlayPosition = function(cell)
+				{
+					// Creates a new overlay with an image and a tooltip
+					var overlay = new mxCellOverlay(new mxImage('images/lightbulb_on.png', 24, 24), 'Add position');
+					overlay.cursor = 'hand';
+
+					// Installs a handler for clicks on the overlay							
+					overlay.addListener(mxEvent.CLICK, function(sender, evt2)
+					{
+						graph.clearSelection();
+						var geo = graph.getCellGeometry(cell);
+						
+						var v2;
+						
+						executeLayout(function()
+						{
+							v2 = graph.insertVertex(parent, null, 'Position', geo.x, geo.y, 120, 60, 'position');
+							//addOverlay(v2);
+							graph.view.refresh(v2);
+							var e1 = graph.insertEdge(parent, null, '', cell, v2, 'ibis');
 						}, function()
 						{
 							graph.scrollCellToVisible(v2);
@@ -118,8 +316,8 @@
 				var v1;
 				try
 				{
-					v1 = graph.insertVertex(parent, null, 'Hello,', 0, 0, 80, 30);
-					addOverlay(v1);
+					v1 = graph.insertVertex(parent, null, 'Issue', 0, 0, 120, 60, 'issue');
+					//addOverlay(v1);
 				}
 				finally
 				{
@@ -191,7 +389,7 @@
 
 	<!-- Creates a container for the graph with a grid wallpaper -->
 	<div id="graphContainer"
-		style="position:relative;overflow:hidden;width:821px;height:641px;background:url('editors/images/grid.gif');cursor:default;">
+		style="position:relative;overflow:hidden;width:100%;height:100%;background:url('images/grid.gif');cursor:default;">
 	</div>
 </body>
 </html>
