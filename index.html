@@ -120,11 +120,12 @@
 				// Enables rubberband selection
 				new mxRubberband(graph);
 
-				document.getElementById("controls").appendChild(mxUtils.button('View XML', function()
+				document.getElementById("controls").appendChild(mxUtils.button('Save', function()
 				{
 					var encoder = new mxCodec();
 					var node = encoder.encode(graph.getModel());
 					mxUtils.popup(mxUtils.getPrettyXml(node), true);
+					localStorage.setItem("PromptPatterns", mxUtils.getXml(node));
 				}));
 				document.getElementById("controls").appendChild(mxUtils.button('Layout', function()
 				{
@@ -145,6 +146,8 @@
 				style[mxConstants.STYLE_ROUNDED] = true;
 				//style[mxConstants.STYLE_OPACITY] = 50;
 				//style[mxConstants.STYLE_FONTCOLOR]= '#774400';
+				style["minWidth"] = 100;
+				style["minHeight"] = 32;
 				style[mxConstants.STYLE_FILLCOLOR] = 'white';
 				style[mxConstants.STYLE_GRADIENTCOLOR] = 'lightBlue';//'deepskyblue';
 				//style[mxConstants.OUTLINE_COLOR] = 'gray';
@@ -393,6 +396,24 @@
 					graph.addCellOverlay(cell, overlay);
 				}
 
+				var graphGetPreferredSizeForCell = graph.getPreferredSizeForCell;
+				graph.getPreferredSizeForCell = function(cell)
+				{
+				var result = graphGetPreferredSizeForCell.apply(this, arguments);
+				var style = this.getCellStyle(cell);
+
+				if (style['minWidth'] > 0)
+				{
+					result.width = Math.max(style['minWidth'], result.width);
+				}
+				if (style['minHeight'] > 0)
+				{
+					result.height = Math.max(style['minHeight'], result.height);
+				}
+
+				return result;
+				};
+
 				// Overrides method to provide a cell label in the display
 				graph.convertValueToString = function(cell)
 				{
@@ -444,12 +465,23 @@
 				var r1,r2;
 				try
 				{
+					//load model from local storage
+					var model = localStorage.getItem('PromptPatterns');
+					if (model){
+						var xmlDoc = mxUtils.parseXml(model);
+						var node = xmlDoc.documentElement;
+						var dec = new mxCodec(node.ownerDocument);
+						dec.decode(node, graph.getModel());
+					}
+					else{
+
 					var p = doc.createElement('issue');
 					p.setAttribute('title', 'issue title');
 
 					r1 = graph.insertVertex(parent, null, p, 0, 0, 120, 60, 'issue');
 					//addOverlay(r1);
 					//r2 = graph.insertVertex(parent, null, p, 0, 300, 120, 60, 'issue');
+					}
 				}
 				finally
 				{
@@ -571,7 +603,11 @@
 			 */
 			function createTextField(graph, form, cell, attribute)
 			{
-				var input = form.addTextarea(attribute.nodeName, attribute.nodeValue, 20);
+				//function to return the number of lines in a string
+				var getLines = function(str) {
+					return str.split(/\r*\n/).length;
+				};
+				var input = form.addTextarea(attribute.nodeName, attribute.nodeValue, Math.min(20, getLines(attribute.nodeValue)+2));
 
 				var applyHandler = function()
 				{
