@@ -124,14 +124,14 @@
 				{
 					var encoder = new mxCodec();
 					var node = encoder.encode(graph.getModel());
-					mxUtils.popup(mxUtils.getPrettyXml(node), true);
+					mxUtils.popup("The following data saved:\n"+mxUtils.getPrettyXml(node), true);
 					localStorage.setItem("PromptPatterns", mxUtils.getXml(node));
 				}));
 				document.getElementById("controls").appendChild(mxUtils.button('Layout', function()
 				{
 					executeLayout();
 				}));
-				var doc = mxUtils.createXmlDocument();
+				var doc ;//= mxUtils.createXmlDocument();
 
 				var style = graph.getStylesheet().getDefaultEdgeStyle();
 				//style[mxConstants.STYLE_LABEL_BACKGROUNDCOLOR] = 'white';								
@@ -149,7 +149,7 @@
 				style["minWidth"] = 100;
 				style["minHeight"] = 32;
 				style[mxConstants.STYLE_FILLCOLOR] = 'white';
-				style[mxConstants.STYLE_GRADIENTCOLOR] = 'lightBlue';//'deepskyblue';
+				style[mxConstants.STYLE_GRADIENTCOLOR] = '#b3d9ff';//'deepskyblue';
 				//style[mxConstants.OUTLINE_COLOR] = 'gray';
 				style[mxConstants.STYLE_FONTSIZE] = 14;
 				graph.getStylesheet().putCellStyle('issue',style);
@@ -195,9 +195,16 @@
 					}
 				});
 
-				// Gets the default parent for inserting new cells. This
-				// is normally the first child of the root (ie. layer 0).
-				var parent = graph.getDefaultParent();
+				var addNode = function(type,dat,cell){
+					// Gets the default parent for inserting new cells. This
+					// is normally the first child of the root (ie. layer 0).
+					let parent = graph.getDefaultParent();
+					let geo = graph.getCellGeometry(cell);
+					let v2 = graph.insertVertex(parent, null, dat, geo.x, geo.y, 120, 60, type);
+					graph.view.refresh(v2);
+					let e1 = graph.insertEdge(parent, null, '', cell, v2, 'ibis');
+					return v2;
+				}
 				
 				var addOverlayIssue = function(cell)
 				{
@@ -209,7 +216,6 @@
 					overlay.addListener(mxEvent.CLICK, function(sender, evt2)
 					{
 						graph.clearSelection();
-						var geo = graph.getCellGeometry(cell);
 						
 						var v2;
 						var p = doc.createElement('issue');
@@ -217,10 +223,7 @@
 						
 						executeLayout(function()
 						{
-							v2 = graph.insertVertex(parent, null, p, geo.x, geo.y, 120, 60, 'issue');
-							//addOverlay(v2);
-							graph.view.refresh(v2);
-							var e1 = graph.insertEdge(parent, null, '', cell, v2, 'ibis');
+							v2 = addNode('issue',p,cell);
 						}, function()
 						{
 							graph.scrollCellToVisible(v2);
@@ -257,7 +260,6 @@
 					overlay.addListener(mxEvent.CLICK, function(sender, evt2)
 					{
 						graph.clearSelection();
-						var geo = graph.getCellGeometry(cell);
 						
 						var v2;
 						var p = doc.createElement('pro');
@@ -265,10 +267,7 @@
 						
 						executeLayout(function()
 						{
-							v2 = graph.insertVertex(parent, null, p, geo.x, geo.y, 120, 60, 'pro');
-							//addOverlay(v2);
-							graph.view.refresh(v2);
-							var e1 = graph.insertEdge(parent, null, '', cell, v2, 'ibis');
+							v2 = addNode('pro',p,cell);
 						}, function()
 						{
 							graph.scrollCellToVisible(v2);
@@ -305,7 +304,6 @@
 					overlay.addListener(mxEvent.CLICK, function(sender, evt2)
 					{
 						graph.clearSelection();
-						var geo = graph.getCellGeometry(cell);
 						
 						var v2;
 						var p = doc.createElement('con');
@@ -314,10 +312,7 @@
 						
 						executeLayout(function()
 						{
-							v2 = graph.insertVertex(parent, null, p, geo.x, geo.y, 120, 60, 'con');
-							//addOverlay(v2);
-							graph.view.refresh(v2);
-							var e1 = graph.insertEdge(parent, null, '', cell, v2, 'ibis');
+							v2 = addNode('con',p,cell);
 						}, function()
 						{
 							graph.scrollCellToVisible(v2);
@@ -355,7 +350,6 @@
 					overlay.addListener(mxEvent.CLICK, function(sender, evt2)
 					{
 						graph.clearSelection();
-						var geo = graph.getCellGeometry(cell);
 						
 						var v2;
 						var p = doc.createElement('position');
@@ -364,11 +358,7 @@
 						
 						executeLayout(function()
 						{
-
-							v2 = graph.insertVertex(parent, null, p, geo.x, geo.y, 120, 60, 'position');
-							//addOverlay(v2);
-							graph.view.refresh(v2);
-							var e1 = graph.insertEdge(parent, null, '', cell, v2, 'ibis');
+							v2 = addNode('position',p,cell);
 						}, function()
 						{
 							graph.scrollCellToVisible(v2);
@@ -462,25 +452,28 @@
 				
 				// Adds cells to the model in a single step
 				graph.getModel().beginUpdate();
-				var r1,r2;
+				var r1=null,r2=null;
 				try
 				{
 					//load model from local storage
 					var model = localStorage.getItem('PromptPatterns');
 					if (model){
-						var xmlDoc = mxUtils.parseXml(model);
-						var node = xmlDoc.documentElement;
+						doc = mxUtils.parseXml(model);
+						var node = doc.documentElement;
 						var dec = new mxCodec(node.ownerDocument);
 						dec.decode(node, graph.getModel());
+						let cells = graph.getChildVertices(graph.getDefaultParent());
+						if (cells.length>0)
+							r1 = cells[0];
 					}
-					else{
+					if (!r1){
+						doc = mxUtils.createXmlDocument();
 
-					var p = doc.createElement('issue');
-					p.setAttribute('title', 'issue title');
+						var p = doc.createElement('issue');
+						p.setAttribute('title', 'Issue');
 
-					r1 = graph.insertVertex(parent, null, p, 0, 0, 120, 60, 'issue');
-					//addOverlay(r1);
-					//r2 = graph.insertVertex(parent, null, p, 0, 300, 120, 60, 'issue');
+						r1 = graph.insertVertex(graph.getDefaultParent(), null, p, 0, 0, 120, 60, 'issue');
+						//r2 = graph.insertVertex(graph.getDefaultParent(), null, p, 0, 300, 120, 60, 'issue');
 					}
 				}
 				finally
@@ -674,7 +667,7 @@
 		<section class="left-sidebar">
 			<div id="controls"></div>
 			<div id="properties"
-				style="border: solid 1px black;">
+				style="border: solid 1px gray;">
 			</div>
 		</section>
 		<footer class="footer">&copy;2023 Wei Lu</footer>
