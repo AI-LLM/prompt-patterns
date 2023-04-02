@@ -469,14 +469,20 @@
 						var dec = new mxCodec(node.ownerDocument);
 						dec.decode(node, graph.getModel());
 						let cells = graph.getChildVertices(graph.getDefaultParent());
-						if (cells.length>0)
-							r1 = cells[0];
+						r1 = cells[0];
+						for (let i=0;i<cells.length;i++){
+							if (cells[i].value.nodeName.toLowerCase() == 'issue' && cells[i].value.getAttribute('version') !== null){
+								r1 = cells[i];
+								break;
+							}
+						}
 					}
 					if (!r1){
 						doc = mxUtils.createXmlDocument();
 
 						var p = doc.createElement('issue');
 						p.setAttribute('title', 'Issue');
+						p.setAttribute('_version', '1.0');
 
 						r1 = graph.insertVertex(graph.getDefaultParent(), null, p, 0, 0, 120, 60, 'issue');
 						//r2 = graph.insertVertex(graph.getDefaultParent(), null, p, 0, 300, 120, 60, 'issue');
@@ -588,6 +594,7 @@
 					var attrs = cell.value.attributes;
 					
 					for (var i = 0; i < attrs.length; i++)
+					if (attrs[i].nodeName.length>0 && attrs[i].nodeName[0] != '_')
 					{
 						createTextField(graph, form, cell, attrs[i]);
 					}
