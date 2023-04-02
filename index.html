@@ -42,6 +42,9 @@
     grid-area:footer;
     background:lightgray;
 }
+#properties {
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
 #properties tr td:first-child {
 	width: 36px;
 	word-break: break-all;
@@ -142,7 +145,7 @@
 
 				style = graph.getStylesheet().getDefaultVertexStyle();
 				style = mxUtils.clone(style);
-				style[mxConstants.STYLE_SHAPE] = mxConstants.SHAPE_RECTANGLE;
+				style[mxConstants.STYLE_SHAPE] = mxConstants.SHAPE_HEXAGON;
 				style[mxConstants.STYLE_ROUNDED] = true;
 				//style[mxConstants.STYLE_OPACITY] = 50;
 				//style[mxConstants.STYLE_FONTCOLOR]= '#774400';
@@ -154,12 +157,15 @@
 				style[mxConstants.STYLE_FONTSIZE] = 14;
 				graph.getStylesheet().putCellStyle('issue',style);
 				style = mxUtils.clone(style);
-				style[mxConstants.STYLE_GRADIENTCOLOR] = 'gold';
-				graph.getStylesheet().putCellStyle('position',style);
-				style = mxUtils.clone(style);
+				style[mxConstants.STYLE_SHAPE] = mxConstants.SHAPE_ELLIPSE;
 				style[mxConstants.STYLE_GRADIENTCOLOR] = 'lawnGreen';
 				graph.getStylesheet().putCellStyle('pro',style);
 				style = mxUtils.clone(style);
+				style[mxConstants.STYLE_SHAPE] = mxConstants.SHAPE_RECTANGLE;
+				style[mxConstants.STYLE_GRADIENTCOLOR] = 'gold';
+				graph.getStylesheet().putCellStyle('position',style);
+				style = mxUtils.clone(style);
+				style[mxConstants.STYLE_ROUNDED] = false;
 				style[mxConstants.STYLE_GRADIENTCOLOR] = 'lightCoral';
 				graph.getStylesheet().putCellStyle('con',style);
 
