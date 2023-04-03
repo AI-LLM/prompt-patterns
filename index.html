@@ -12,22 +12,22 @@
 			font-family:Arial, Helvetica, sans-serif;
 		}
 /* grid container */
-.left-sidebar-grid {
+/*.left-sidebar-grid {
     display:grid;
     grid-template-areas:
         'header'
         'main-content'
         'left-sidebar'
         'footer';
-}
+}*/
 
 /* general column padding */
-.left-sidebar-grid > * {
+/*.left-sidebar-grid > * {
     padding:5px;
-}
+}*/
 
 /* assign columns to grid areas */
-.left-sidebar-grid > .header {
+/*.left-sidebar-grid > .header {
     grid-area:header;
 }
 .left-sidebar-grid > .main-content {
@@ -38,14 +38,17 @@
 }
 .left-sidebar-grid > .right-sidebar {
     grid-area:right-sidebar;
-}
+}*/
 .left-sidebar-grid > .footer {
     grid-area:footer;
     background:#E5E4E2;
 }
 #properties {
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-	padding: 10px 0;
+	/*box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);*/
+	padding: 10px 10px;
+}
+#properties table, #properties textarea{
+	width: 100%;
 }
 #properties tr td:first-child {
 	width: 36px;
@@ -54,20 +57,15 @@
 }
 
 /* tablet breakpoint */
-@media (min-width:768px) {
+/*@media (min-width:768px) {
     .left-sidebar-grid {
-        /*grid-template-columns:repeat(3, 1fr);
-        grid-template-areas:
-            'header header header'
-            'left-sidebar main-content main-content'
-            'footer footer footer';*/
 		grid-template-columns: 220px 1fr;
         grid-template-areas:
             'header header'
             'left-sidebar main-content'
             'footer footer';
     }
-}
+}*/
 	</style>
 
 	<!-- Sets the basepath for the library if not in same directory -->
@@ -127,6 +125,13 @@
 				// Enables rubberband selection
 				new mxRubberband(graph);
 
+				let wndContent = document.createElement('div');
+				wndContent.id = "controls";
+				let wnd = new mxWindow('Control', wndContent, 10, 60, 150, 50, true, true);
+				wnd.setMaximizable(false);
+				wnd.setScrollable(true);
+				wnd.setResizable(true);
+				wnd.setVisible(true);
 				document.getElementById("controls").appendChild(mxUtils.button('Save', function()
 				{
 					var encoder = new mxCodec();
@@ -567,6 +572,13 @@
 
 				// Implements a properties panel that uses
 				// mxCellAttributeChange to change properties
+				wndContent = document.createElement('div');
+				wndContent.id = "properties";
+				wnd = new mxWindow('Edit', wndContent, 10, 120, 220, 240, true, true);
+				wnd.setMaximizable(true);
+				wnd.setScrollable(true);
+				wnd.setResizable(true);
+				wnd.setVisible(true);
 				graph.getSelectionModel().addListener(mxEvent.CHANGE, function(sender, evt)
 				{
 					selectionChanged(graph);
@@ -696,12 +708,12 @@
 				style="position:relative;overflow:hidden;width:100%;height:100%;cursor:default;">
 			</div>	
 		</main>
-		<section class="left-sidebar">
+		<!--<section class="left-sidebar">
 			<div id="controls"></div>
 			<div id="properties"
 				style="border: solid 1px gray;">
 			</div>
-		</section>
+		</section>-->
 		<footer class="footer">&copy;2023 Wei Lu</footer>
 	</div>
 </body>
