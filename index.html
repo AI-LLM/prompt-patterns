@@ -5,6 +5,7 @@
 -->
 <html>
 <head>
+	<meta charset="UTF-8">
 	<title>Prompt Patterns</title>
 	<style type="text/css">
 		body{
@@ -44,6 +45,7 @@
 }
 #properties {
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	padding: 10px 0;
 }
 #properties tr td:first-child {
 	width: 36px;
@@ -75,6 +77,8 @@
 
 	<!-- Loads and initializes the library -->
 	<script type="text/javascript" src="src/js/mxClient.js"></script>
+	
+	<script src="dist/bundle.js"></script>
 
 	<!-- Example code -->
 	<script type="text/javascript">
@@ -201,13 +205,14 @@
 					}
 				});
 
-				var addNode = function(type,dat,cell){
+				var addVertexAndEdge = function(type,dat,cell){
 					// Gets the default parent for inserting new cells. This
 					// is normally the first child of the root (ie. layer 0).
 					let parent = graph.getDefaultParent();
 					let geo = graph.getCellGeometry(cell);
 					let v2 = graph.insertVertex(parent, null, dat, geo.x, geo.y, 120, 60, type);
-					graph.view.refresh(v2);
+					graph.updateCellSize(v2);
+					//graph.view.refresh(v2);
 					let e1 = graph.insertEdge(parent, null, '', cell, v2, 'ibis');
 					return v2;
 				}
@@ -229,7 +234,7 @@
 						
 						executeLayout(function()
 						{
-							v2 = addNode('issue',p,cell);
+							v2 = addVertexAndEdge('issue',p,cell);
 						}, function()
 						{
 							graph.scrollCellToVisible(v2);
@@ -273,7 +278,7 @@
 						
 						executeLayout(function()
 						{
-							v2 = addNode('pro',p,cell);
+							v2 = addVertexAndEdge('pro',p,cell);
 						}, function()
 						{
 							graph.scrollCellToVisible(v2);
@@ -318,7 +323,7 @@
 						
 						executeLayout(function()
 						{
-							v2 = addNode('con',p,cell);
+							v2 = addVertexAndEdge('con',p,cell);
 						}, function()
 						{
 							graph.scrollCellToVisible(v2);
@@ -364,7 +369,7 @@
 						
 						executeLayout(function()
 						{
-							v2 = addNode('position',p,cell);
+							v2 = addVertexAndEdge('position',p,cell);
 						}, function()
 						{
 							graph.scrollCellToVisible(v2);
@@ -486,6 +491,16 @@
 
 						r1 = graph.insertVertex(graph.getDefaultParent(), null, p, 0, 0, 120, 60, 'issue');
 						//r2 = graph.insertVertex(graph.getDefaultParent(), null, p, 0, 300, 120, 60, 'issue');
+
+						var req = mxUtils.load("prompt-patterns_"+navigator.language+".yaml");
+						var text = req.getText();
+						if (text){
+							const nodeCreator = new patterns.Pattern2IBIS(doc, addVertexAndEdge, r1);//TODO: check version
+							patterns.parseYaml(text, nodeCreator);
+							setTimeout(function(){
+								executeLayout();
+							}, 500);
+						}
 					}
 				}
 				finally
@@ -665,11 +680,15 @@
 				}
 			}
 		};
+	
+		document.addEventListener('DOMContentLoaded', () => {
+			main(document.getElementById('graphContainer'));
+		});
 	</script>
 </head>
 
 <!-- Page passes the container for the graph to the program -->
-<body onload="main(document.getElementById('graphContainer'))">
+<body>
 	<div class="left-sidebar-grid">
 		<header class="header"><h1>Prompt Patterns</h1></header>
 		<main class="main-content">

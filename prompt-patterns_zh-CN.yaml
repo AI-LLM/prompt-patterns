@@ -1,0 +1,32 @@
+---
+version: 1.0
+patterns:
+- type: issue
+  title: 结果不够好
+  develop:
+    - type: issue
+      title: 结果不便于后续操作
+      develop:
+        - type: issue
+          title: 返回的建议可能包含很多步骤，用户人工操作复杂易错
+          develop:
+            - type: pattern
+              title: Output Automater
+        - type: issue
+          title: 返回的信息需要后续工具处理，希望尽可能格式化
+          develop:
+            - type: pattern
+              title: Template
+        - type: issue
+          title: 不够精确完整
+          develop:
+            - type: pattern
+              title: Recipe
+              develop:
+                - type: example
+                  title: 例子
+                - type: counterexample
+                  title: 反例
+- type: issue
+  title: 提示难编写
+...
