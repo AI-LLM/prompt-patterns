@@ -1,5 +1,7 @@
 ---
-version: 1.0
+_version: 1.0
+_author: Wei Lu (mailwlu@gmail.com)
+description: Based on https://arxiv.org/abs/2302.11382
 patterns:
 - type: issue
   title: 结果不够好

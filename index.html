@@ -538,16 +538,30 @@
 						doc = mxUtils.createXmlDocument();
 
 						var p = doc.createElement('issue');
-						p.setAttribute('title', 'Issue');
-						p.setAttribute('_version', '1.0');
+						p.setAttribute('title', 'Issue\nMapping');
+						p.setAttribute('_version', '0.1');
 
 						r1 = graph.insertVertex(graph.getDefaultParent(), null, p, 0, 0, 120, 60, 'issue');
 						//r2 = graph.insertVertex(graph.getDefaultParent(), null, p, 0, 300, 120, 60, 'issue');
 
+						//TODO: load patterns from yaml even there is a local saved model
 						var req = mxUtils.load("prompt-patterns_"+navigator.language+".yaml");
 						var text = req.getText();
 						if (text){
-							const nodeCreator = new patterns.Pattern2IBIS(doc, addVertexAndEdge, r1);//TODO: check version
+							const nodeCreator = new patterns.Pattern2IBIS(doc, addVertexAndEdge, r1, meta=>{
+								//console.log(meta);
+								if (meta && meta._version && parseFloat(meta._version) > parseFloat(p.getAttribute('_version'))){
+									Object.keys(meta).forEach(key => {
+									if (typeof meta[key] === 'string') {
+										p.setAttribute(key, meta[key].trim());
+									} else {
+										p.setAttribute(key, meta[key]);
+									}
+									});
+									return true;
+								}
+								return false;
+							});
 							patterns.parseYaml(text, nodeCreator);
 							setTimeout(function(){
 								executeLayout();
