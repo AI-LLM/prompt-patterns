@@ -676,7 +676,9 @@
 				{
 					//move the wndEdit to the left of the cell
 					let geo = graph.getCellGeometry(cell);
-					wndEdit.setLocation(Math.max(0,geo.x-wndEdit.table.clientWidth-10), geo.y);
+					let x = graph.view.scale*(geo.x+graph.view.translate.x);
+					let y = graph.view.scale*(geo.y+graph.view.translate.y);
+					wndEdit.setLocation(Math.max(0,x-wndEdit.table.clientWidth-10), y);
 					setTimeout(function(){
 						wndEdit.fit();
 					}, 100);
