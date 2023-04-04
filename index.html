@@ -133,12 +133,58 @@
 				// Enables rubberband selection
 				new mxRubberband(graph);
 
+				var undoMng = new mxUndoManager(); 
+				var listener = function(sender, evt) { 
+					undoMng.undoableEditHappened(evt.getProperty('edit')); 
+				};
+				graph.getModel().addListener(mxEvent.UNDO, listener); 
+				graph.getView().addListener(mxEvent.UNDO, listener);
+
 				document.getElementById("controls").appendChild(mxUtils.button('Save', function()
 				{
 					var encoder = new mxCodec();
 					var node = encoder.encode(graph.getModel());
 					mxUtils.popup("The following data saved:\n"+mxUtils.getPrettyXml(node), true);
 					localStorage.setItem("PromptPatterns", mxUtils.getXml(node));
+				}));
+				document.getElementById("controls").appendChild(mxUtils.button('Del selection', function()
+				{
+					if (graph.isEnabled() && graph.getSelectionCell()){
+						graph.getModel().beginUpdate();
+						try
+						{
+							const selectedCell=graph.getSelectionCell();
+							if (graph.getIncomingEdges(selectedCell).length==0 || graph.getOutgoingEdges(selectedCell).length==0)
+							{
+								graph.removeCells(null, true);
+							}
+							for (const incoming of graph.getIncomingEdges(selectedCell)){							
+								let source = incoming.source;
+								for (const outgoing of graph.getOutgoingEdges(selectedCell)) {
+									let target = outgoing.target;
+									graph.removeCells(null, true);
+									graph.insertEdge(graph.getDefaultParent(), null, '', source, target, 'ibis');
+
+								} 
+							}
+						}
+						catch (e)
+						{
+							console.error(e);
+						}
+						finally
+						{
+							graph.getModel().endUpdate();
+						}
+					}
+				}));
+				document.getElementById("controls").appendChild(mxUtils.button('Undo', function()
+				{
+					undoMng.undo();
+				}));
+				document.getElementById("controls").appendChild(mxUtils.button('Redo', function()
+				{
+					undoMng.redo();
 				}));
 				document.getElementById("controls").appendChild(mxUtils.button('Layout', function()
 				{
