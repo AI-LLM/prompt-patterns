@@ -66,7 +66,7 @@ patterns:
         - type: pattern
           title: Refusal Breaker
 - type: issue
-  title: 提示难编写
+  title: 提示编写难
   develop:
     - type: issue
       title: 自然语言的局限

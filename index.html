@@ -41,10 +41,12 @@
 }*/
 .left-sidebar-grid > .footer {
     grid-area:footer;
+	padding:5px;
     background:#E5E4E2;
 }
 #properties {
 	/*box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);*/
+	clear: both;
 	padding: 10px 10px;
 }
 #properties table, #properties textarea{
@@ -85,6 +87,12 @@
 		// from the onLoad event handler of the document (see below).
 		function main(container)
 		{
+			let wndEdit = new mxWindow('Control', document.getElementById("edit"), 10, 60, 240, 360, true, true);
+			wndEdit.setMaximizable(true);
+			wndEdit.setScrollable(true);
+			wndEdit.setResizable(true);
+			wndEdit.setVisible(true);
+
 			// Checks if the browser is supported
 			if (!mxClient.isBrowserSupported())
 			{
@@ -125,13 +133,6 @@
 				// Enables rubberband selection
 				new mxRubberband(graph);
 
-				let wndContent = document.createElement('div');
-				wndContent.id = "controls";
-				let wnd = new mxWindow('Control', wndContent, 10, 60, 150, 50, true, true);
-				wnd.setMaximizable(false);
-				wnd.setScrollable(true);
-				wnd.setResizable(true);
-				wnd.setVisible(true);
 				document.getElementById("controls").appendChild(mxUtils.button('Save', function()
 				{
 					var encoder = new mxCodec();
@@ -572,13 +573,6 @@
 
 				// Implements a properties panel that uses
 				// mxCellAttributeChange to change properties
-				wndContent = document.createElement('div');
-				wndContent.id = "properties";
-				wnd = new mxWindow('Edit', wndContent, 10, 120, 220, 240, true, true);
-				wnd.setMaximizable(true);
-				wnd.setScrollable(true);
-				wnd.setResizable(true);
-				wnd.setVisible(true);
 				graph.getSelectionModel().addListener(mxEvent.CHANGE, function(sender, evt)
 				{
 					selectionChanged(graph);
@@ -609,6 +603,10 @@
 				}
 				else
 				{
+					//move the wndEdit to the right of the cell
+					let geo = graph.getCellGeometry(cell);
+					wndEdit.setLocation(geo.x+geo.width+50, geo.y);
+
 					// Writes the title
 					var center = document.createElement('center');
 					mxUtils.writeln(center, cell.value.nodeName + ' (' + cell.id + ')');
@@ -714,6 +712,11 @@
 				style="border: solid 1px gray;">
 			</div>
 		</section>-->
+		<section id="edit">
+			<div id="controls"></div>
+			<div id="properties">
+			</div>
+		</section>
 		<footer class="footer">&copy;2023 Wei Lu</footer>
 	</div>
 </body>
