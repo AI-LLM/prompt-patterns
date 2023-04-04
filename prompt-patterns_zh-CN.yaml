@@ -89,7 +89,16 @@ patterns:
       title: 不够直观
       develop:
         - type: pattern
-          title: Visualization Generator
+          title: |
+           Visualization Generator
+           可视化生成
+          结构: 生成…工具使用的…格式的脚本，描述…图。
+          注意: 已知GPT支持的工具和格式包括Graphviz Dot file、DALL-E prompt和mermaid脚本等。
+          develop:
+            - type: example
+              title: 例子
+              prompt: 生成html网页包含mermaid格式的脚本描述Pilot、Air Traffic Control、Flight Plan的类图。
+              _result: <a target="_blank" href="examples/visualization-generator-mermaid-gpt3-5.html">GPT-3.5结果有语法错误</a>。<a target="_blank" href="examples/visualization-generator-mermaid-gpt4.html">GPT-4修改库链接</a>后<a target="_blank" href="examples/uml_class_diagram_mermaid.html">成功</a>
     - type: issue
       title: 有错误
       develop:

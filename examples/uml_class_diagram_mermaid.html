@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UML Class Diagram with Mermaid</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true
+        });
+    </script>
+</head>
+<body>
+    <div class="mermaid">
+        classDiagram
+            class Pilot {
+                +String name
+                +int experienceYears
+                +String licenseNumber
+                +pilotAircraft(Aircraft : aircraft) : void
+            }
+        class AirTrafficControl {
+            +String identifier
+            +String location
+            +coordinateFlight(FlightPlan : flightPlan) : void
+        }
+
+        class FlightPlan {
+            +String origin
+            +String destination
+            +String route
+            +DateTime departureTime
+            +DateTime arrivalTime
+        }
+
+        class Aircraft {
+            +String model
+            +String registrationNumber
+            +int capacity
+        }
+
+        Pilot "1" --> "1" Aircraft : pilots
+        FlightPlan "1" --> "*" Pilot : isFor
+        FlightPlan "1" --> "1" AirTrafficControl : isCoordinatedBy
+    </div>
+</body>
+</html>
+</div>
