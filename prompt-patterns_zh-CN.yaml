@@ -117,13 +117,12 @@ patterns:
                解释推理过程和答案基于的假设，
                可能的话给出具体例子或证据，
                说明答案中任何潜在的歧义或限制，
-               补充…人可能不知道的知识，
-               以便我可以改进问题。
+               补充…人可能不知道的知识。
               develop:
                 - type: example
                   title: 例子
-                  prompt: Java软件项目可以使用Event-B吗？当你回答时，解释推理过程和答案基于的假设，可能的话给出具体例子或证据，说明答案中任何潜在的歧义或限制，补充一般Java程序员可能不知道的知识，以便我可以改进问题。
-                  _result: <a target="_blank" href="examples/reflection-event-b-gpt3-5.html">GPT-3.5</a>，<a target="_blank" href="examples/reflection-event-b-gpt4.html">GPT-4</a>
+                  prompt: Java软件项目可以使用Event-B吗？当你回答时，解释推理过程和答案基于的假设，可能的话给出具体例子或证据，说明答案中任何潜在的歧义或限制，补充一般Java程序员可能不知道的知识。
+                  _result: <a target="_blank" href="examples/reflection-event-b-gpt3-5-2.html">GPT-3.5</a>，<a target="_blank" href="examples/reflection-event-b-gpt4-2.html">GPT-4</a>
         - type: issue
           title: |
             包含事实性错误
