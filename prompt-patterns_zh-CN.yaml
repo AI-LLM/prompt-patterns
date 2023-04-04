@@ -1,4 +1,3 @@
----
 _version: 1.0
 #author: Wei Lu (mailwlu@gmail.com)
 description: Based on https://arxiv.org/abs/2302.11382
@@ -130,4 +129,3 @@ patterns:
               title: Alternative Approaches
             - type: pattern
               title: Cognitive Verifier
-...
