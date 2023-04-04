@@ -18,8 +18,15 @@ patterns:
               title: |
                Output Automater
                输出自动化脚本
-              结构: a
+              结构: 当你描述的工作包含多个步骤(或需要创建多个文件)，生成一个脚本让我运行来自动完成工作。
               注意: 应明确应生成脚本的具体类型，或者由具体何种第三方机制执行，否则LLM可能理解为要求它执行而以无此能力等理由拒绝。
+              develop:
+                - type: example
+                  title: 例子
+                  prompt: |
+                    创建一个web项目框架，需要在html中使用javascript代码和npm js-yaml库解析YAML格式数据，请描述所需工作。
+                    当你描述的工作包含多个步骤或需要创建多个文件，生成一个python 3脚本让我运行来自动完成。
+                  _link: <a target="_blank" href="examples/output-automater-2.html">chat log</a>
         - type: issue
           title: |
            返回的信息需要后续工具处理
