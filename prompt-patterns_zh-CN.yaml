@@ -25,7 +25,7 @@ patterns:
                   prompt: |
                     创建一个web项目框架，需要在html中使用javascript代码和npm js-yaml库解析YAML格式数据，请描述所需工作。
                     当你描述的工作包含多个步骤或需要创建多个文件，生成一个python 3脚本让我运行来自动完成。
-                  _link: <a target="_blank" href="examples/output-automater-2.html">chat log</a>
+                  _result: <a target="_blank" href="examples/output-automater-2.html">chat log</a>
         - type: issue
           title: |
            返回的信息需要后续工具处理
@@ -35,6 +35,44 @@ patterns:
               title: |
                Template
                模版输出
+              结构: |
+               ...返回文本，按以下模版格式化，方括号中是实际内容的占位符。
+               模版：
+               ... [占位] ...
+              develop:
+                - type: example
+                  title: 例子
+                  prompt: |
+                    有一系列的屏幕宽度320、480、768、1024，当屏幕宽度小于768则对应元素宽度为100%，否则元素宽度为50%。对每个屏幕宽度请返回文本，按以下模版格式化，方括号中是实际内容的占位符。
+                    模版:
+                    @media screen and (min-width: [屏幕宽度]px) {
+                      .element {
+                        width:[元素宽度]
+                      }
+                    }
+                  _result: <a target="_blank" href="examples/template-gpt3-5.html">chat log</a>
+                - type: con
+                  title: 会输出多余的说明性文字
+                  develop:
+                    - type: question
+                      title: 怎么办？
+                      develop:
+                        - type: pattern
+                          title: 强调只输出什么内容
+                          结构: ... 请只返回模版生成的文本。
+                          注意: 不同LLM和版本需尝试找到最有效的方式
+                          develop:
+                            - type: example
+                              title: 例子
+                              prompt: |
+                                有一系列的屏幕宽度320、480、768、1024，当屏幕宽度小于768则对应元素宽度为100%，否则元素宽度为50%。对每个屏幕宽度请返回文本，按以下模版格式化，方括号中是实际内容的占位符。请只返回模版生成的文本。
+                                模版:
+                                @media screen and (min-width: [屏幕宽度]px) {
+                                  .element {
+                                    width:[元素宽度]
+                                  }
+                                }
+                              _result: <a target="_blank" href="examples/template-gpt3-5-2.html">chat log</a>
     - type: issue
       title: 不够精确完整
       develop:

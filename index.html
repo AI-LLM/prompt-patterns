@@ -190,6 +190,14 @@
 				{
 					executeLayout();
 				}));
+				document.getElementById("controls").appendChild(mxUtils.button('Zoom +', function()
+				{
+					graph.zoomIn();
+				}));				
+				document.getElementById("controls").appendChild(mxUtils.button('Zoom -', function()
+				{
+					graph.zoomOut();
+				}));
 				var doc ;//= mxUtils.createXmlDocument();
 
 				var style = graph.getStylesheet().getDefaultEdgeStyle();
@@ -669,6 +677,9 @@
 					//move the wndEdit to the left of the cell
 					let geo = graph.getCellGeometry(cell);
 					wndEdit.setLocation(Math.max(0,geo.x-wndEdit.table.clientWidth-10), geo.y);
+					setTimeout(function(){
+						wndEdit.fit();
+					}, 100);
 
 					// Writes the title
 					var center = document.createElement('center');
