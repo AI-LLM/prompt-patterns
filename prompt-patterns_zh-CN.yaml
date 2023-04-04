@@ -1,6 +1,6 @@
 ---
 _version: 1.0
-_author: Wei Lu (mailwlu@gmail.com)
+#author: Wei Lu (mailwlu@gmail.com)
 description: Based on https://arxiv.org/abs/2302.11382
 patterns:
 - type: issue
@@ -15,14 +15,20 @@ patterns:
            用户人工操作复杂易错
           develop:
             - type: pattern
-              title: Output Automater
+              title: |
+               Output Automater
+               输出自动化脚本
+              结构: a
+              注意: 应明确应生成脚本的具体类型，或者由具体何种第三方机制执行，否则LLM可能理解为要求它执行而以无此能力等理由拒绝。
         - type: issue
           title: |
            返回的信息需要后续工具处理
            需要一定的格式
           develop:
             - type: pattern
-              title: Template
+              title: |
+               Template
+               模版输出
     - type: issue
       title: 不够精确完整
       develop:

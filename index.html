@@ -1,7 +1,7 @@
 <!--
   Copyright (c) 2023, Wei Lu (mailwlu@gmail.com)
 
-  based on the work of JGraph Ltd (http://www.jgraph.com)
+  based on the examples of JGraph Ltd (http://www.jgraph.com)
 -->
 <html>
 <head>
@@ -54,7 +54,7 @@
 }
 #properties tr td:first-child {
 	width: 36px;
-	word-break: break-all;
+	/*word-break: break-all;*/
 	text-align: right;
 }
 
@@ -283,6 +283,7 @@
 						var v2;
 						var p = doc.createElement('issue');
 						p.setAttribute('title', 'issue title');
+						patterns.setNodeModel('issue',p);
 						
 						executeLayout(function()
 						{
@@ -327,6 +328,7 @@
 						var v2;
 						var p = doc.createElement('pro');
 						p.setAttribute('title', 'pro title');
+						patterns.setNodeModel('pro',p);
 						
 						executeLayout(function()
 						{
@@ -371,6 +373,7 @@
 						var v2;
 						var p = doc.createElement('con');
 						p.setAttribute('title', 'con title');
+						patterns.setNodeModel('con',p);
 
 						
 						executeLayout(function()
@@ -417,7 +420,7 @@
 						var v2;
 						var p = doc.createElement('position');
 						p.setAttribute('title', 'position title');
-						p.setAttribute('model', 'pattern model');
+						patterns.setNodeModel('position',p);
 						
 						executeLayout(function()
 						{
@@ -663,9 +666,9 @@
 				}
 				else
 				{
-					//move the wndEdit to the right of the cell
+					//move the wndEdit to the left of the cell
 					let geo = graph.getCellGeometry(cell);
-					wndEdit.setLocation(geo.x+geo.width+50, geo.y);
+					wndEdit.setLocation(Math.max(0,geo.x-wndEdit.table.clientWidth-10), geo.y);
 
 					// Writes the title
 					var center = document.createElement('center');
@@ -683,6 +686,11 @@
 					{
 						createTextField(graph, form, cell, attrs[i]);
 					}
+					else{
+						let div = document.createElement('div');
+						div.innerHTML = attrs[i].nodeValue;
+						form.addField(attrs[i].nodeName.replace(/_/g,' '), div);
+					}
 	
 					div.appendChild(form.getTable());
 					mxUtils.br(div);
@@ -698,7 +706,8 @@
 				var getLines = function(str) {
 					return str.split(/\r*\n/).length;
 				};
-				var input = form.addTextarea(attribute.nodeName, attribute.nodeValue, Math.min(20, getLines(attribute.nodeValue)+2));
+				var input = form.addTextarea(attribute.nodeName, attribute.nodeValue, 
+					Math.min(20, 2+Math.max( Math.ceil(attribute.nodeValue.length/16), getLines(attribute.nodeValue))));
 
 				var applyHandler = function()
 				{
