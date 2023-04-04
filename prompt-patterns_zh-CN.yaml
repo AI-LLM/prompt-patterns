@@ -77,12 +77,14 @@ patterns:
       title: 不够精确完整
       develop:
         - type: pattern
-          title: Recipe
-          develop:
-            - type: example
-              title: 例子
-            - type: counterexample
-              title: 反例
+          title: |
+           Recipe
+           食谱
+          结构: |
+           第一部分：我想达到目的…，请给我提供完整的步骤。
+           第二部分：我以为还有…步骤要做，为什么不在你的方案里？
+          注意: 用户知道部分步骤是好的，如果第一部分提问后机器返回的结果中不包含已知步骤，可以用第二部分追问。
+          #TODO: examples
     - type: issue
       title: 不够直观
       develop:
