@@ -701,7 +701,7 @@
 					}
 					else{
 						let div = document.createElement('div');
-						div.innerHTML = attrs[i].nodeValue;
+						div.innerHTML = attrs[i].nodeValue;//FIXME: XSS check!!!
 						form.addField(attrs[i].nodeName.replace(/_/g,' '), div);
 					}
 	
