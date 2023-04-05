@@ -377,7 +377,16 @@ patterns:
            不知道如何改进问题
           develop:
             - type: pattern
-              title: Flipped Interaction
+              title: |
+               Flipped Interaction
+               反向交互
+              结构: 我希望你问我问题来达到…目的。你持续提问直到满足…条件。一次…个问题。
+              注意: 如果有已知的信息应该先描述，避免LLM遗漏或随机产生错误假设
+              develop:
+               - type: example
+                 title: 例子
+                 prompt: 从现在开始，我希望你问我问题来实现部署一个python应用到AWS的目的。直到你获得足够信息。一次1个问题。
+                 _result: <a target="_blank" href="examples/flipped-interaction.html">GPT-3.5</a>
             - type: pattern
               title: Question Refinement
             - type: pattern
