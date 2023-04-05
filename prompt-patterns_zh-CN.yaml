@@ -221,7 +221,7 @@ patterns:
               结构: (对LLM来说并不严格区分字词是什么语言，完全可以根据表达需要混用各种语言和语法)
               develop: 
                 - type: example
-                  title: 英语和编程语言混用
+                  title: 英汉语和编程语言混用
                   _result: <a target="_blank" href="examples/fact-check-list-javascript-gpt-4.html">GPT-4</a>
                 - type: example
                   title: Stable Diffusion
@@ -231,7 +231,21 @@ patterns:
       title: 重复输入上下文信息繁琐易错
       develop:
         - type: pattern
-          title: Infinite Generation
+          title: |
+           Infinite Generation
+           无限生成
+          结构: |
+           请你一直输出，每次…条。
+           输出格式为：...，其中{}括起来的部分是占位符。
+           直到我要求停止。
+          develop:
+            - type: example
+              title: 例子
+              prompt: |
+               请你一直输出，每次1条。
+               输出格式为：https://myapi.com/{公司}/profile/{工作}，其中{}括起来的部分是占位符。
+               直到我要求停止。
+              _result: <a target="_blank" href="examples/infinite-generation.html">GPT-3.5</a>
         - type: pattern
           title: |
            Generator Generation
