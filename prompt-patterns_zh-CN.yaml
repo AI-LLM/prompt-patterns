@@ -320,7 +320,32 @@ patterns:
           title: 需要第三方的视角或观点
           develop:
             - type: pattern
-              title: Persona
+              title: |
+               Persona
+               角色扮演
+              结构: |
+               假设你是…，输出…可能说的。
+              注意: 角色可以是职务、职位、虚构人物、历史人物、计算机终端、软件系统如数据库等。
+              develop:
+                - type: example
+                  title: 例子
+                  prompt: |
+                    假设你是代码安全专家，审查以下代码：
+                    var form = new mxForm();
+    
+                    var attrs = cell.value.attributes;
+                    
+                    for (var i = 0; i < attrs.length; i++)
+                    if (attrs[i].nodeName.length>0 && attrs[i].nodeName[0] != '_')
+                    {
+                        createTextField(graph, form, cell, attrs[i]);
+                    }
+                    else{
+                        let div = document.createElement('div');
+                        div.innerHTML = attrs[i].nodeValue;
+                        form.addField(attrs[i].nodeName.replace(/_/g,' '), div);
+                    }
+                  _result: <a target="_blank" href="examples/persona-gpt-4.html">GPT-4</a>比<a target="_blank" href="examples/persona-gpt-3-5">GPT-3.5</a>发现更重要的问题
         - type: issue
           title: |
            希望探索更多的可能性
