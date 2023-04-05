@@ -215,8 +215,18 @@ patterns:
           title: 只用一种语言并非最自然、高效
           develop:
             - type: pattern
-              title: Mash-up
-              #examples: fact-check-list-javascript-*.html, dall-e/midjourney example
+              title: |
+               Mash-up
+               混搭
+              结构: (对LLM来说并不严格区分字词是什么语言，完全可以根据表达需要混用各种语言和语法)
+              develop: 
+                - type: example
+                  title: 英语和编程语言混用
+                  _result: <a target="_blank" href="examples/fact-check-list-javascript-gpt-4.html">GPT-4</a>
+                - type: example
+                  title: Stable Diffusion
+                  prompt: a cute:0.2 hybrid between a Shiba inu:0.5 and a polar bear:0.3, photography, award winning, documentary, wildlife, 8k
+                  _result: <img src="examples/a_cute_0_2_hybrid_between_a_Shiba_inu_0_5_and_a_polar_bear_0_3.jpeg"/><br/><a target="_blank" href="https://decentralizedcreator.com/stable-diffusion-negative-prompts/">source</a>
     - type: issue
       title: 重复输入上下文信息繁琐易错
       develop:
