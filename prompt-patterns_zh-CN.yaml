@@ -73,6 +73,7 @@ patterns:
                                   }
                                 }
                               _result: <a target="_blank" href="examples/template-gpt3-5-2.html">chat log</a>
+                #- type: issue LLM已经训练过大众格式？
     - type: issue
       title: 不够精确完整
       develop:
@@ -123,13 +124,39 @@ patterns:
                   title: 例子
                   prompt: Java软件项目可以使用Event-B吗？当你回答时，解释推理过程和答案基于的假设，可能的话给出具体例子或证据，说明答案中任何潜在的歧义或限制，补充一般Java程序员可能不知道的知识。
                   _result: <a target="_blank" href="examples/reflection-event-b-gpt3-5-2.html">GPT-3.5</a>，<a target="_blank" href="examples/reflection-event-b-gpt4-2.html">GPT-4</a>
+                #TODO:- type: con there is a risk the output may include errors or inaccurate assumptions included in the explanation of the rationale that the user may not be able to spot. <-how?<-combine Fact Check List
         - type: issue
           title: |
             包含事实性错误
             或检查起来太繁琐
           develop:
             - type: pattern
-              title: Fact Check List
+              title: |
+               Fact Check List
+               事实核对清单
+              结构: ...将你的回答中涉及的事实单独整理成列表附在最后。
+              注意: 事实列表可以限定于特定范围，减少用户认知负担。
+              develop:
+                - type: example
+                  title: 领域设计例子
+                  prompt: 请为A公司的薪酬软件系统设计类模型，他们包含长期聘用的技术人员和临时的清洁工。将你的回答中涉及的事实单独整理成列表附在最后。
+                  _result: <a target="_blank" href="examples/fact-check-list.html">GPT-4</a>
+                - type: example
+                  title: 编码例子
+                  prompt: |
+                   根据注释完成其下的代码，改用哈希表而不是条件语句来做映射。将代码中使用到的JavaScript语法特性的浏览器支持情况单独整理成列表附在最后。
+                   createNode(type, data, parentNode) {
+                     let newElem;
+                     // according to type "issue" to create an issue node, "pattern" to a "position" node, "example" to a "pro" node, "counterexample" to a "con" node
+                     if (type.toLowerCase() === "issue") {
+                       newElem = doc.createElement('issue');
+                     }
+                     Object.keys(data).forEach(key => newElem.setAttribute(key, data[key]));
+                     return this.addVertexAndEdge(type, newElem, parentNode);
+                   }
+                  _result: <a target="_blank" href="examples/fact-check-list-javascript-gpt-3-5.html">GPT-3.5</a>，<a target="_blank" href="examples/fact-check-list-javascript-gpt-4.html">GPT-4</a>
+                - type: con
+                  title: 所列清单本身仍有可能错误
     - type: issue
       title: |
         与最近的上下文不符
@@ -158,6 +185,7 @@ patterns:
           develop:
             - type: pattern
               title: Mash-up
+              #examples: fact-check-list-javascript-*.html
     - type: issue
       title: 重复输入上下文信息繁琐易错
       develop:
