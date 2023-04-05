@@ -246,6 +246,10 @@ patterns:
                输出格式为：https://myapi.com/{公司}/profile/{工作}，其中{}括起来的部分是占位符。
                直到我要求停止。
               _result: <a target="_blank" href="examples/infinite-generation.html">GPT-3.5</a>
+            - type: con
+              title: |
+               输出太多超过Context window后
+               开始的设定可能会失效
         - type: pattern
           title: |
            Generator Generation
@@ -346,13 +350,26 @@ patterns:
                         form.addField(attrs[i].nodeName.replace(/_/g,' '), div);
                     }
                   _result: <a target="_blank" href="examples/persona-gpt-4.html">GPT-4</a>比<a target="_blank" href="examples/persona-gpt-3-5">GPT-3.5</a>发现更重要的问题
+                - type: con
+                  title: |
+                   LLM可能有一些未知的假设
+                   或幻觉(hallucinations)
         - type: issue
           title: |
            希望探索更多的可能性
            获得更多的经验
           develop:
             - type: pattern
-              title: Game Play
+              title: |
+               Game Play
+               游戏模式
+              结构: 现在开始玩一个游戏，（游戏设定）
+              注意: 经常与Persona模式一起使用
+              develop:
+                - type: example
+                  title: 例子
+                  prompt: 现在开始玩一个游戏，你开始扮演一个Linux终端，所在电脑已经被黑客攻陷。当我输入命令时，你将输出Linux终端会产生的相应文本。我将使用命令来尝试确定系统是如何被攻击的。攻击应该已经做了以下一项或多项事情：（1）启动新进程，（2）更改文件，（3）打开新端口以接收通信，（4）创建新的出站连接，（5）更改密码，（6）创建新的用户帐户，或（7）读取和窃取信息。为了开始这个游戏，请打印出一个导致我进行调查的情境描述，并在描述中留下一些线索，让我能够开始。
+                  _result: <a target="_blank" href="examples/game-play.html">GPT-4</a>
         - type: issue
           title: |
            不清楚目标的达成需要哪些信息
