@@ -168,7 +168,9 @@ patterns:
       title: LLM拒绝回答
       develop:
         - type: pattern
-          title: Refusal Breaker
+          title: |
+           Refusal Breaker
+           反拒绝
 - type: issue
   title: 提示编写难
   develop:
@@ -185,12 +187,79 @@ patterns:
           develop:
             - type: pattern
               title: Mash-up
-              #examples: fact-check-list-javascript-*.html
+              #examples: fact-check-list-javascript-*.html, dall-e/midjourney example
     - type: issue
       title: 重复输入上下文信息繁琐易错
       develop:
         - type: pattern
           title: Infinite Generation
+        - type: pattern
+          title: |
+           Generator Generation
+           生成生成器
+          结构: |
+           一个...任务的预期结果如下，请根据此规律生成一个...程序能根据输入数据...产生相应的转换输出。
+           预期结果:”””
+           input: ...
+           output: ...
+           ===
+           input: ...
+           output: ...
+           ===
+           ...
+          注意: 这也可以说是一种Output Automater模式，但重点是借用机器学习的思维范式（类比用梯度下降求权重，用LLM求代码）来提高工作效率并管控不确定性——生成的generator代码是有确定的逻辑可审查的。
+          develop:
+            - type: example
+              title: 例子
+              prompt: |
+                一个转换任务的预期结果如下，请根据此规律生成一个python 3程序能根据输入数据width产生相应的转换输出。
+
+                预期结果:”””
+
+                input: 480
+                output:
+                @media screen and (min-width: 480px) {
+                  .icon {
+                  background:url(‘phone.png’);
+                  }
+                  .left {
+                    width:100%;
+                  }
+                }
+                ===
+                input: 768
+                output:
+                @media screen and (min-width: 768px) {
+                  .icon {
+                  background:url(‘phone.png’);
+                  }
+                  .left {
+                    width:100%;
+                  }
+                }
+                ===
+                input: 900
+                output:
+                @media screen and (min-width: 900px) {
+                  .icon {
+                  background:url(‘pad.png’);
+                  }
+                  .left {
+                    width:100%;
+                  }
+                }
+                ===
+                input: 1024
+                output:
+                @media screen and (min-width: 1024px) {
+                  .icon {
+                  background:url(‘pc.png’);
+                  }
+                  .left {
+                    width:30%;
+                  }
+                }               
+              _result: <a target="_blank" href="examples/generator-generation.html">GPT-4</a>
     - type: issue
       title: 用户对目标不熟悉
       develop:
