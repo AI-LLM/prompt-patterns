@@ -163,7 +163,13 @@ patterns:
         或被截断
       develop:
         - type: pattern
-          title: Context Manager
+          title: |
+           Context Manager
+           上下文管理
+          结构: |
+           在…范围内，只考虑…，忽略...。
+           （如果需要完全清除影响）忽略以上内容重新开始
+           （如果输出中途结束且不是网络问题）请继续
     - type: issue
       title: LLM拒绝回答
       develop:
