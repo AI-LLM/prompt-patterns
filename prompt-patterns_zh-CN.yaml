@@ -189,7 +189,28 @@ patterns:
           title: 自然语言表达复杂，不精确
           develop:
             - type: pattern
-              title: Meta Language Creation
+              title: |
+               Meta Language Creation
+               创建元语言
+              结构: 当我说…，代表…（或者你应该做）
+              develop:
+                - type: example
+                  title: 例子
+                  prompt: |
+                    ...
+                    以上是mermaid格式的类图。从现在开始当我说has-a，表示 “1” *-- “1”。
+                    在其中增加一个Route类，FlightPlan has-a Route
+                  _result: <a target="_blank" href="examples/meta-language-creation.html">GPT-3.5</a>
+                - type: counterexample
+                  title: |
+                   反例
+                   LLM的训练集中已经存在很多元语言
+                   有时可以直接使用
+                  prompt: |
+                    ...
+                    以上是mermaid格式的类图。
+                    在其中增加一个Route类，FlightPlan composite 1 Route
+                  _result: <a target="_blank" href="examples/meta-language-existing.html">GPT-4</a>
         - type: issue
           title: 只用一种语言并非最自然、高效
           develop:
