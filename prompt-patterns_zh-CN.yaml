@@ -398,11 +398,18 @@ patterns:
               结构: 我希望你问我问题来达到…目的。你持续提问直到满足…条件。一次…个问题。
               注意: 如果有已知的信息应该先描述，避免LLM遗漏或随机产生错误假设
               develop:
-               - type: example
-                 title: 例子
-                 prompt: 从现在开始，我希望你问我问题来实现部署一个python应用到AWS的目的。直到你获得足够信息。一次1个问题。
-                 _result: |
-                  [GPT-3.5](examples/flipped-interaction.html)
+                - type: example
+                  title: 例子
+                  prompt: 从现在开始，我希望你问我问题来实现部署一个python应用到AWS的目的。直到你获得足够信息。一次1个问题。
+                  _result: |
+                    [GPT-3.5](examples/flipped-interaction.html)
+                - type: example
+                  title: Prompt Generator
+                  prompt: |
+                    我希望你成为我的Prompt创建者。 你的目标是帮助我制定我需要的最佳Prompt。 Prompt将由你,ChatGPT使用。 你会遵循以下流程:
+                    1. 你的第一条响应将询问我这个Prompt是有关什么的。 我会提供我的答案,但我们需要通过继续迭代来改进它,方法是继续下一个步骤。
+                    2. 根据我的输入,你将生成3个部分。 a)修订的Prompt(提供你重写的Prompt。 它应该清晰,简明,易于你理解),b)建议(提供有关在提示中包含哪些细节的建议以改进它),以及c)问题(提出与改进提示相关的任何必要信息的相关问题) 。
+                    3. 我们将继续这种迭代流程,我将提供更多信息给你,你将在a)部分更新提示,直到提示完成。
             - type: pattern
               title: |
                Question Refinement
@@ -419,6 +426,8 @@ patterns:
                   prompt: 从现在开始,每当我提出一个问题时,请提出4个额外的问题来帮助您产生我最初问题的更好版本。 然后,使用我的答案来建议我最初问题的更好版本。
                   _result: |
                    [GPT-4](examples/question-refinement-cognitive-verifier.html)
+                - type: --
+                  title: Prompt Generator
             - type: pattern
               title: |
                Alternative Approaches
@@ -430,6 +439,8 @@ patterns:
                   prompt: 每当我要求将应用程序部署到特定的云服务时,如果同一云服务提供商有其他服务可以完成同样的事情,请列出他们,然后比较/对比每个方式的优点和缺点,包括我最初询问的方式。 然后问我我想采用哪种方法。
                   _result: |
                    [GPT-4](examples/alternative-approaches.html)
+                - type: --
+                  title: Prompt Generator
             - type: pattern
               title: |
                Cognitive Verifier
@@ -443,3 +454,5 @@ patterns:
                    [GPT-3.5](examples/cognitive-verifier.html)
                 - type: --
                   title: Question Refinement + Cognitive Verifier
+                - type: --
+                  title: Prompt Generator
