@@ -701,7 +701,11 @@
 					}
 					else{
 						let div = document.createElement('div');
-						div.innerHTML = attrs[i].nodeValue;//FIXME: XSS check!!!
+						div.innerHTML = attrs[i].nodeValue	//FIXME: XSS risk
+							.replace(/<[^>]+>/g, '')
+							.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img alt="$1" src="$2" />')//img
+							.replace(/\[([^\]]*)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>')//link
+							;
 						form.addField(attrs[i].nodeName.replace(/_/g,' '), div);
 					}
 	

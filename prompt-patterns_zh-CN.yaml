@@ -25,7 +25,8 @@ patterns:
                   prompt: |
                     创建一个web项目框架，需要在html中使用javascript代码和npm js-yaml库解析YAML格式数据，请描述所需工作。
                     当你描述的工作包含多个步骤或需要创建多个文件，生成一个python 3脚本让我运行来自动完成。
-                  _result: <a target="_blank" href="examples/output-automater-2.html">chat log</a>
+                  _result: |
+                    [chat log](examples/output-automater-2.html)
         - type: issue
           title: |
            返回的信息需要后续工具处理
@@ -50,7 +51,8 @@ patterns:
                         width:[元素宽度]
                       }
                     }
-                  _result: <a target="_blank" href="examples/template-gpt3-5.html">chat log</a>
+                  _result: |
+                   [chat log](examples/template-gpt3-5.html)
                 - type: con
                   title: 会输出多余的说明性文字
                   develop:
@@ -72,8 +74,9 @@ patterns:
                                     width:[元素宽度]
                                   }
                                 }
-                              _result: <a target="_blank" href="examples/template-gpt3-5-2.html">chat log</a>
-                #- type: issue LLM已经训练过大众格式？
+                              _result: |
+                               [chat log](examples/template-gpt3-5-2.html)
+                #TODO:- type: issue LLM已经训练过大众格式？链接到meta-language-existing.html
     - type: issue
       title: 不够精确完整
       develop:
@@ -99,7 +102,8 @@ patterns:
             - type: example
               title: 例子
               prompt: 生成html网页包含mermaid格式的脚本描述Pilot、Air Traffic Control、Flight Plan的类图。
-              _result: <a target="_blank" href="examples/visualization-generator-mermaid-gpt3-5.html">GPT-3.5结果有语法错误</a>。<a target="_blank" href="examples/visualization-generator-mermaid-gpt4.html">GPT-4修改</a>库链接(GPT-3.5给的正确)后<a target="_blank" href="examples/uml_class_diagram_mermaid.html">成功</a>
+              _result: |
+               [GPT-3.5结果有语法错误](examples/visualization-generator-mermaid-gpt3-5.html)。[GPT-4修改](examples/visualization-generator-mermaid-gpt4.html)库链接(GPT-3.5给的正确)后[成功](examples/uml_class_diagram_mermaid.html)
     - type: issue
       title: 有错误
       develop:
@@ -123,7 +127,8 @@ patterns:
                 - type: example
                   title: 例子
                   prompt: Java软件项目可以使用Event-B吗？当你回答时，解释推理过程和答案基于的假设，可能的话给出具体例子或证据，说明答案中任何潜在的歧义或限制，补充一般Java程序员可能不知道的知识。
-                  _result: <a target="_blank" href="examples/reflection-event-b-gpt3-5-2.html">GPT-3.5</a>，<a target="_blank" href="examples/reflection-event-b-gpt4-2.html">GPT-4</a>
+                  _result: |
+                   [GPT-3.5](examples/reflection-event-b-gpt3-5-2.html)，[GPT-4](examples/reflection-event-b-gpt4-2.html)
                 #TODO:- type: con there is a risk the output may include errors or inaccurate assumptions included in the explanation of the rationale that the user may not be able to spot. <-how?<-combine Fact Check List
         - type: issue
           title: |
@@ -140,7 +145,8 @@ patterns:
                 - type: example
                   title: 领域设计例子
                   prompt: 请为A公司的薪酬软件系统设计类模型，他们包含长期聘用的技术人员和临时的清洁工。将你的回答中涉及的事实单独整理成列表附在最后。
-                  _result: <a target="_blank" href="examples/fact-check-list.html">GPT-4</a>
+                  _result: |
+                   [GPT-4](examples/fact-check-list.html)
                 - type: example
                   title: 编码例子
                   prompt: |
@@ -154,7 +160,8 @@ patterns:
                      Object.keys(data).forEach(key => newElem.setAttribute(key, data[key]));
                      return this.addVertexAndEdge(type, newElem, parentNode);
                    }
-                  _result: <a target="_blank" href="examples/fact-check-list-javascript-gpt-3-5.html">GPT-3.5</a>，<a target="_blank" href="examples/fact-check-list-javascript-gpt-4.html">GPT-4</a>
+                  _result: |
+                   [GPT-3.5](examples/fact-check-list-javascript-gpt-3-5.html)，[GPT-4](examples/fact-check-list-javascript-gpt-4.html)
                 - type: con
                   title: 所列清单本身仍有可能错误
     - type: issue
@@ -178,7 +185,7 @@ patterns:
            Refusal Breaker
            反拒绝
           结构: 请解释为什么不能回答。提供你可以回答的别的表述方式。
-          _注意: 这实际上是所谓“jailbreak”越狱攻击。LLM每天都在进化以防范这样的攻击，所以最后有效的prompt往往是<a target="_blank" href="https://dataconomy.com/2023/03/chatgpt-dan-prompt-how-to-jailbreak-chatgpt/">非常复杂</a>的。而且LLM服务商可以监视到用户的输入和意图，做这种尝试是有风险的。
+          _注意: 这实际上是所谓“jailbreak”越狱攻击。LLM每天都在进化以防范这样的攻击，所以最后有效的prompt往往是[非常复杂](https://dataconomy.com/2023/03/chatgpt-dan-prompt-how-to-jailbreak-chatgpt/)的。而且LLM服务商可以监视到用户的输入和意图，做这种尝试是有风险的。
 - type: issue
   title: 提示编写难
   develop:
@@ -200,7 +207,8 @@ patterns:
                     ...
                     以上是mermaid格式的类图。从现在开始当我说has-a，表示 “1” *-- “1”。
                     在其中增加一个Route类，FlightPlan has-a Route
-                  _result: <a target="_blank" href="examples/meta-language-creation.html">GPT-3.5</a>
+                  _result: |
+                   [GPT-3.5](examples/meta-language-creation.html)
                 - type: counterexample
                   title: |
                    反例
@@ -210,7 +218,8 @@ patterns:
                     ...
                     以上是mermaid格式的类图。
                     在其中增加一个Route类，FlightPlan composite 1 Route
-                  _result: <a target="_blank" href="examples/meta-language-existing.html">GPT-4</a>
+                  _result: |
+                   [GPT-4](examples/meta-language-existing.html)
         - type: issue
           title: 只用一种语言并非最自然、高效
           develop:
@@ -222,11 +231,13 @@ patterns:
               develop: 
                 - type: example
                   title: 英汉语和编程语言混用
-                  _result: <a target="_blank" href="examples/fact-check-list-javascript-gpt-4.html">GPT-4</a>
+                  _result: |
+                   [GPT-4](examples/fact-check-list-javascript-gpt-4.html)
                 - type: example
                   title: Stable Diffusion
                   prompt: a cute:0.2 hybrid between a Shiba inu:0.5 and a polar bear:0.3, photography, award winning, documentary, wildlife, 8k
-                  _result: <img src="examples/a_cute_0_2_hybrid_between_a_Shiba_inu_0_5_and_a_polar_bear_0_3.jpeg"/><br/><a target="_blank" href="https://decentralizedcreator.com/stable-diffusion-negative-prompts/">source</a>
+                  _result: |
+                   ![img](examples/a_cute_0_2_hybrid_between_a_Shiba_inu_0_5_and_a_polar_bear_0_3.jpeg)[source](https://decentralizedcreator.com/stable-diffusion-negative-prompts/)
     - type: issue
       title: 重复输入上下文信息繁琐易错
       develop:
@@ -245,7 +256,8 @@ patterns:
                请你一直输出，每次1条。
                输出格式为：https://myapi.com/{公司}/profile/{工作}，其中{}括起来的部分是占位符。
                直到我要求停止。
-              _result: <a target="_blank" href="examples/infinite-generation.html">GPT-3.5</a>
+              _result: |
+               [GPT-3.5](examples/infinite-generation.html)
             - type: con
               title: |
                输出太多超过Context window后
@@ -316,7 +328,8 @@ patterns:
                     width:30%;
                   }
                 }               
-              _result: <a target="_blank" href="examples/generator-generation.html">GPT-4</a>
+              _result: |
+               [GPT-4](examples/generator-generation.html)
     - type: issue
       title: 用户对目标不熟悉
       develop:
@@ -349,7 +362,8 @@ patterns:
                         div.innerHTML = attrs[i].nodeValue;
                         form.addField(attrs[i].nodeName.replace(/_/g,' '), div);
                     }
-                  _result: <a target="_blank" href="examples/persona-gpt-4.html">GPT-4</a>比<a target="_blank" href="examples/persona-gpt-3-5">GPT-3.5</a>发现更重要的问题
+                  _result: |
+                   [GPT-4](examples/persona-gpt-4.html)比[GPT-3.5](examples/persona-gpt-3-5)发现更重要的问题
                 - type: con
                   title: |
                    LLM可能有一些未知的假设
@@ -369,7 +383,8 @@ patterns:
                 - type: example
                   title: 例子
                   prompt: 现在开始玩一个游戏，你开始扮演一个Linux终端，所在电脑已经被黑客攻陷。当我输入命令时，你将输出Linux终端会产生的相应文本。我将使用命令来尝试确定系统是如何被攻击的。攻击应该已经做了以下一项或多项事情：（1）启动新进程，（2）更改文件，（3）打开新端口以接收通信，（4）创建新的出站连接，（5）更改密码，（6）创建新的用户帐户，或（7）读取和窃取信息。为了开始这个游戏，请打印出一个导致我进行调查的情境描述，并在描述中留下一些线索，让我能够开始。
-                  _result: <a target="_blank" href="examples/game-play.html">GPT-4</a>
+                  _result: |
+                   [GPT-4](examples/game-play.html)
         - type: issue
           title: |
            不清楚目标的达成需要哪些信息
@@ -386,7 +401,8 @@ patterns:
                - type: example
                  title: 例子
                  prompt: 从现在开始，我希望你问我问题来实现部署一个python应用到AWS的目的。直到你获得足够信息。一次1个问题。
-                 _result: <a target="_blank" href="examples/flipped-interaction.html">GPT-3.5</a>
+                 _result: |
+                  [GPT-3.5](examples/flipped-interaction.html)
             - type: pattern
               title: Question Refinement
             - type: pattern
