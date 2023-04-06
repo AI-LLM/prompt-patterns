@@ -198,6 +198,15 @@
 				{
 					graph.zoomOut();
 				}));
+				document.getElementById("controls").appendChild(mxUtils.button('∅∅∅', function()
+				{
+					let parent = graph.getDefaultParent();
+					let vertices = graph.getChildVertices(parent);
+					for (let cell of vertices)
+					{
+						graph.removeCellOverlays(cell);
+					}
+				}));
 				var doc ;//= mxUtils.createXmlDocument();
 
 				var style = graph.getStylesheet().getDefaultEdgeStyle();
