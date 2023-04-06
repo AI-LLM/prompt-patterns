@@ -414,7 +414,8 @@ patterns:
                   prompt: 从现在开始,每当我提出关于软件工件的安全性问题时,请建议使用包含我使用的语言或框架的特定安全风险信息的问题的更好版本,并问我是否希望使用您的问题代替。
                   _result: |
                    [GPT-4](examples/question-refinement-pattern.html)
-                - type: example
+                - &qr_cv
+                  type: example
                   title: Question Refinement + Cognitive Verifier
                   prompt: 从现在开始,每当我提出一个问题时,请提出4个额外的问题来帮助您产生我最初问题的更好版本。 然后,使用我的答案来建议我最初问题的更好版本。
                   _result: |
@@ -431,4 +432,14 @@ patterns:
                   _result: |
                    [GPT-4](examples/alternative-approaches.html)
             - type: pattern
-              title: Cognitive Verifier
+              title: |
+               Cognitive Verifier
+               认知校验
+              结构: 当我要你做…，你提出…个问题有助于你更好地做…，然后组合我给你的答案来完成…。
+              develop:
+                - type: example
+                  title: 例子
+                  prompt: 当我问你问题时，你提出5个问题有助于你更好地回答我问的问题，然后,组合我给你的答案来回答我问的问题。
+                  _result: |
+                   [GPT-3.5](examples/cognitive-verifier.html)
+                - *qr_cv
