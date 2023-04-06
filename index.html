@@ -693,6 +693,8 @@
 					var form = new mxForm();
 	
 					var attrs = cell.value.attributes;
+					if (!attrs)
+						return;
 					
 					for (var i = 0; i < attrs.length; i++)
 					if (attrs[i].nodeName.length>0 && attrs[i].nodeName[0] != '_')
