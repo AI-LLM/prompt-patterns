@@ -21,7 +21,7 @@ patterns:
               注意: 应明确应生成脚本的具体类型，或者由具体何种第三方机制执行，否则LLM可能理解为要求它执行而以无此能力等理由拒绝。
               develop:
                 - type: example
-                  title: 例子
+                  title: python自动化创建web项目例子
                   prompt: |
                     创建一个web项目框架，需要在html中使用javascript代码和npm js-yaml库解析YAML格式数据，请描述所需工作。
                     当你描述的工作包含多个步骤或需要创建多个文件，生成一个python 3脚本让我运行来自动完成。
@@ -42,7 +42,7 @@ patterns:
                ... [占位] ...
               develop:
                 - type: example
-                  title: 例子
+                  title: CSS模版例子
                   prompt: |
                     有一系列的屏幕宽度320、480、768、1024，当屏幕宽度小于768则对应元素宽度为100%，否则元素宽度为50%。对每个屏幕宽度请返回文本，按以下模版格式化，方括号中是实际内容的占位符。
                     模版:
@@ -65,7 +65,7 @@ patterns:
                           注意: 不同LLM和版本需尝试找到最有效的方式
                           develop:
                             - type: example
-                              title: 例子
+                              title: CSS模版例子
                               prompt: |
                                 有一系列的屏幕宽度320、480、768、1024，当屏幕宽度小于768则对应元素宽度为100%，否则元素宽度为50%。对每个屏幕宽度请返回文本，按以下模版格式化，方括号中是实际内容的占位符。请只返回模版生成的文本。
                                 模版:
@@ -100,7 +100,7 @@ patterns:
           注意: 已知GPT支持的工具和格式包括Graphviz Dot file、DALL-E prompt和mermaid脚本等。
           develop:
             - type: example
-              title: 例子
+              title: 类图例子
               prompt: 生成html网页包含mermaid格式的脚本描述Pilot、Air Traffic Control、Flight Plan的类图。
               _result: |
                [GPT-3.5结果有语法错误](examples/visualization-generator-mermaid-gpt3-5.html)。[GPT-4修改](examples/visualization-generator-mermaid-gpt4.html)库链接(GPT-3.5给的正确)后[成功](examples/uml_class_diagram_mermaid.html)
@@ -125,7 +125,7 @@ patterns:
                补充…人可能不知道的知识。
               develop:
                 - type: example
-                  title: 例子
+                  title: Event-B例子
                   prompt: Java软件项目可以使用Event-B吗？当你回答时，解释推理过程和答案基于的假设，可能的话给出具体例子或证据，说明答案中任何潜在的歧义或限制，补充一般Java程序员可能不知道的知识。
                   _result: |
                    [GPT-3.5](examples/reflection-event-b-gpt3-5-2.html)，[GPT-4](examples/reflection-event-b-gpt4-2.html)
@@ -202,7 +202,7 @@ patterns:
               结构: 当我说…，代表…（或者你应该做）
               develop:
                 - type: example
-                  title: 例子
+                  title: mermaid例子
                   prompt: |
                     ...
                     以上是mermaid格式的类图。从现在开始当我说has-a，表示 “1” *-- “1”。
@@ -211,7 +211,7 @@ patterns:
                    [GPT-3.5](examples/meta-language-creation.html)
                 - type: counterexample
                   title: |
-                   反例
+                   mermaid反例
                    LLM的训练集中已经存在很多元语言
                    有时可以直接使用
                   prompt: |
@@ -234,7 +234,7 @@ patterns:
                   _result: |
                    [GPT-4](examples/fact-check-list-javascript-gpt-4.html)
                 - type: example
-                  title: Stable Diffusion
+                  title: Stable Diffusion例子
                   prompt: a cute:0.2 hybrid between a Shiba inu:0.5 and a polar bear:0.3, photography, award winning, documentary, wildlife, 8k
                   _result: |
                    ![img](examples/a_cute_0_2_hybrid_between_a_Shiba_inu_0_5_and_a_polar_bear_0_3.jpeg)[source](https://decentralizedcreator.com/stable-diffusion-negative-prompts/)
@@ -251,7 +251,7 @@ patterns:
            直到我要求停止。
           develop:
             - type: example
-              title: 例子
+              title: 输出URL例子
               prompt: |
                请你一直输出，每次1条。
                输出格式为：https://myapi.com/{公司}/profile/{工作}，其中{}括起来的部分是占位符。
@@ -279,7 +279,7 @@ patterns:
           注意: 这也可以说是一种Output Automater模式，但重点是借用机器学习的思维范式（类比用梯度下降求权重，用LLM求代码）来提高工作效率并管控不确定性——生成的generator代码是有确定的逻辑可审查的。
           develop:
             - type: example
-              title: 例子
+              title: CSS生成器例子
               prompt: |
                 一个转换任务的预期结果如下，请根据此规律生成一个python 3程序能根据输入数据width产生相应的转换输出。
 
@@ -345,7 +345,7 @@ patterns:
               注意: 角色可以是职务、职位、虚构人物、历史人物、计算机终端、软件系统如数据库等。
               develop:
                 - type: example
-                  title: 例子
+                  title: 代码安全审查例子
                   prompt: |
                     假设你是代码安全专家，审查以下代码：
                     var form = new mxForm();
@@ -381,7 +381,7 @@ patterns:
               注意: 经常与Persona模式一起使用
               develop:
                 - type: example
-                  title: 例子
+                  title: 模拟被攻击例子
                   prompt: 现在开始玩一个游戏，你开始扮演一个Linux终端，所在电脑已经被黑客攻陷。当我输入命令时，你将输出Linux终端会产生的相应文本。我将使用命令来尝试确定系统是如何被攻击的。攻击应该已经做了以下一项或多项事情：（1）启动新进程，（2）更改文件，（3）打开新端口以接收通信，（4）创建新的出站连接，（5）更改密码，（6）创建新的用户帐户，或（7）读取和窃取信息。为了开始这个游戏，请打印出一个导致我进行调查的情境描述，并在描述中留下一些线索，让我能够开始。
                   _result: |
                    [GPT-4](examples/game-play.html)
@@ -399,7 +399,7 @@ patterns:
               注意: 如果有已知的信息应该先描述，避免LLM遗漏或随机产生错误假设
               develop:
                 - type: example
-                  title: 例子
+                  title: AWS部署例子
                   prompt: 从现在开始，我希望你问我问题来实现部署一个python应用到AWS的目的。直到你获得足够信息。一次1个问题。
                   _result: |
                     [GPT-3.5](examples/flipped-interaction.html)
@@ -417,7 +417,7 @@ patterns:
               结构: 每当我提出关于…的问题时,请建议…的更好版本
               develop:
                 - type: example
-                  title: 例子
+                  title: 软件工程安全问题例子
                   prompt: 从现在开始,每当我提出关于软件工件的安全性问题时,请建议使用包含我使用的语言或框架的特定安全风险信息的问题的更好版本,并问我是否希望使用您的问题代替。
                   _result: |
                    [GPT-4](examples/question-refinement-pattern.html)
@@ -435,7 +435,7 @@ patterns:
               结构: 每当…/在…情况下，如果存在其他方式请列举他们，对比/比较每个方式的优点和缺点，包括我最初询问的方式。然后问我我想采用哪种方式。
               develop:
                 - type: example
-                  title: 例子
+                  title: 云服务部署例子
                   prompt: 每当我要求将应用程序部署到特定的云服务时,如果同一云服务提供商有其他服务可以完成同样的事情,请列出他们,然后比较/对比每个方式的优点和缺点,包括我最初询问的方式。 然后问我我想采用哪种方法。
                   _result: |
                    [GPT-4](examples/alternative-approaches.html)
@@ -448,7 +448,7 @@ patterns:
               结构: 当我要你做…，你提出…个问题有助于你更好地做…，然后组合我给你的答案来完成…。
               develop:
                 - type: example
-                  title: 例子
+                  title: 认知校验问题例子
                   prompt: 当我问你问题时，你提出5个问题有助于你更好地回答我问的问题，然后,组合我给你的答案来回答我问的问题。
                   _result: |
                    [GPT-3.5](examples/cognitive-verifier.html)
