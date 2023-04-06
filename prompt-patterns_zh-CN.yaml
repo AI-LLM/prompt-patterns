@@ -420,6 +420,15 @@ patterns:
                   _result: |
                    [GPT-4](examples/question-refinement-cognitive-verifier.html)
             - type: pattern
-              title: Alternative Approaches
+              title: |
+               Alternative Approaches
+               替代方案
+              结构: 每当…/在…情况下，如果存在其他方式请列举他们，对比/比较每个方式的优点和缺点，包括我最初询问的方式。然后问我我想采用哪种方式。
+              develop:
+                - type: example
+                  title: 例子
+                  prompt: 每当我要求将应用程序部署到特定的云服务时,如果同一云服务提供商有其他服务可以完成同样的事情,请列出他们,然后比较/对比每个方式的优点和缺点,包括我最初询问的方式。 然后问我我想采用哪种方法。
+                  _result: |
+                   [GPT-4](examples/alternative-approaches.html)
             - type: pattern
               title: Cognitive Verifier
