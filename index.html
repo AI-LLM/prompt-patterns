@@ -285,6 +285,23 @@
 					let e1 = graph.insertEdge(parent, null, '', cell, v2, 'ibis');
 					return v2;
 				}
+				var addEdge = function(from,selector){
+					console.log(selector)
+					let cells = graph.getChildVertices(graph.getDefaultParent());
+					for (let cell of cells){
+						let match = true;
+						for (let key in selector){
+							if (cell.value.getAttribute(key) !== selector[key]){
+								match = false;
+								break;
+							}
+						}
+						if (match){
+							let e1 = graph.insertEdge(graph.getDefaultParent(), null, '', from, cell, 'ibis');
+							break;
+						}
+					}
+				}
 				
 				var addOverlayIssue = function(cell)
 				{
@@ -568,7 +585,7 @@
 						var req = mxUtils.load("prompt-patterns_"+navigator.language+".yaml");
 						var text = req.getText();
 						if (text){
-							const nodeCreator = new patterns.Pattern2IBIS(doc, addVertexAndEdge, r1, meta=>{
+							const nodeCreator = new patterns.Pattern2IBIS(doc, addVertexAndEdge, addEdge, r1, meta=>{
 								//console.log(meta);
 								if (meta && meta._version && parseFloat(meta._version) > parseFloat(p.getAttribute('_version'))){
 									Object.keys(meta).forEach(key => {
