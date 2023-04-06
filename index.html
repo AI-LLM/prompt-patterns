@@ -583,8 +583,13 @@
 						//r2 = graph.insertVertex(graph.getDefaultParent(), null, p, 0, 300, 120, 60, 'issue');
 
 						//TODO: load patterns from yaml even there is a local saved model
-						var req = mxUtils.load("prompt-patterns_"+navigator.language+".yaml");
+						var req = mxUtils.load("prompt-patterns_"+navigator.language.toLowerCase()+".yaml");
 						var text = req.getText();
+						if (!text){
+							mxUtils.error("Translation for your language("+navigator.language.toLowerCase()+") is not available. Trying English version instead...",300,true,mxClient.imageBasePath + '/warning.png');
+							req = mxUtils.load("prompt-patterns_en.yaml");
+							text = req.getText();
+						}
 						if (text){
 							const nodeCreator = new patterns.Pattern2IBIS(doc, addVertexAndEdge, addEdge, r1, meta=>{
 								//console.log(meta);
