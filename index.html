@@ -193,10 +193,12 @@
 				document.getElementById("controls").appendChild(mxUtils.button('Zoom +', function()
 				{
 					graph.zoomIn();
+					graph.scrollCellToVisible(graph.getSelectionCell());
 				}));				
 				document.getElementById("controls").appendChild(mxUtils.button('Zoom -', function()
 				{
 					graph.zoomOut();
+					graph.scrollCellToVisible(graph.getSelectionCell());
 				}));
 				document.getElementById("controls").appendChild(mxUtils.button('∅∅∅', function()
 				{
