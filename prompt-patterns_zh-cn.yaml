@@ -232,7 +232,7 @@ patterns:
                 - type: example
                   title: 英汉语和编程语言混用
                   _result: |
-                   [GPT-4](examples/fact-check-list-javascript-gpt-4.html)
+                   [example1](examples/fact-check-list-javascript-gpt-4.html), [example2](examples/coding-todo.html)
                 - type: example
                   title: Stable Diffusion例子
                   prompt: a cute:0.2 hybrid between a Shiba inu:0.5 and a polar bear:0.3, photography, award winning, documentary, wildlife, 8k
