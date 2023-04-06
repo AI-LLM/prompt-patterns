@@ -404,7 +404,21 @@ patterns:
                  _result: |
                   [GPT-3.5](examples/flipped-interaction.html)
             - type: pattern
-              title: Question Refinement
+              title: |
+               Question Refinement
+               问题求精
+              结构: 每当我提出关于…的问题时,请建议…的更好版本
+              develop:
+                - type: example
+                  title: 例子
+                  prompt: 从现在开始,每当我提出关于软件工件的安全性问题时,请建议使用包含我使用的语言或框架的特定安全风险信息的问题的更好版本,并问我是否希望使用您的问题代替。
+                  _result: |
+                   [GPT-4](examples/question-refinement-pattern.html)
+                - type: example
+                  title: Question Refinement + Cognitive Verifier
+                  prompt: 从现在开始,每当我提出一个问题时,请提出4个额外的问题来帮助您产生我最初问题的更好版本。 然后,使用我的答案来建议我最初问题的更好版本。
+                  _result: |
+                   [GPT-4](examples/question-refinement-cognitive-verifier.html)
             - type: pattern
               title: Alternative Approaches
             - type: pattern
