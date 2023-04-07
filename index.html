@@ -706,6 +706,9 @@
 				}
 				else
 				{
+					if (cell.isEdge()){
+						return;
+					}
 					//move the wndEdit to the left of the cell
 					let geo = graph.getCellGeometry(cell);
 					let x = graph.view.scale*(geo.x+graph.view.translate.x);
