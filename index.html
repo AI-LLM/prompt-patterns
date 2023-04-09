@@ -292,7 +292,10 @@
 					for (let cell of cells){
 						let match = true;
 						for (let key in selector){
-							if (cell.value.getAttribute(key) !== selector[key]){
+							let re = new RegExp('\\s','g');
+							let v1= selector[key].replace(re,'');
+							let v2 = cell.value.getAttribute(key).replace(re,'');
+							if (v2 !== v1){
 								match = false;
 								break;
 							}
