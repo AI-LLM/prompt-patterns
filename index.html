@@ -586,10 +586,10 @@
 						//r2 = graph.insertVertex(graph.getDefaultParent(), null, p, 0, 300, 120, 60, 'issue');
 
 						//TODO: load patterns from yaml even there is a local saved model
-						var req = mxUtils.load("prompt-patterns_"+navigator.language.toLowerCase()+".yaml");
+						var req = mxUtils.load("prompt-patterns_"+langValue+".yaml");
 						var text = req.getText();
 						if (!text){
-							mxUtils.error("Translation for your language("+navigator.language.toLowerCase()+") is not available. Trying English version instead...",300,true,mxClient.imageBasePath + '/warning.png');
+							mxUtils.error("Translation for your language("+langValue+") is not available. Trying English version instead...",300,true,mxClient.imageBasePath + '/warning.png');
 							req = mxUtils.load("prompt-patterns_en.yaml");
 							text = req.getText();
 						}
@@ -817,7 +817,32 @@
 			}
 		};
 	
+		var langValue = navigator.language.toLowerCase();
+
 		document.addEventListener('DOMContentLoaded', () => {
+			// 获取当前URL
+			var currentURL = window.location.href;
+
+			// 检查URL是否包含lang参数
+			if (currentURL.indexOf('?') !== -1) {
+				// 从URL中提取所有参数
+				var queryString = currentURL.split('?')[1];
+
+				// 将参数字符串拆分为一个数组
+				var params = queryString.split('&');
+
+				// 遍历参数数组，查找lang参数
+				for (var i = 0; i < params.length; i++) {
+					var param = params[i];
+					if (param.indexOf('lang=') === 0) {
+						// 找到了lang参数，提取其值
+						langValue = param.split('=')[1].toLowerCase();
+						// 只需要处理第一个找到的lang参数，因此退出循环
+						break;
+					}
+				}
+			}
+
 			main(document.getElementById('graphContainer'));
 		});
 	</script>

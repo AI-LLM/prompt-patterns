@@ -3,203 +3,19 @@ _version: 1.0
 description: Based on https://arxiv.org/abs/2302.11382
 patterns:
 - type: issue
-  title: 结果不够好
+  title: Difficult in writing prompts
   develop:
     - type: issue
-      title: 结果不便于后续操作
+      title: Limited by natural language
       develop:
         - type: issue
           title: |
-           返回的建议可能包含很多步骤
-           用户人工操作复杂易错
+           Complex and imprecise
+           in natural language
           develop:
             - type: pattern
-              title: |
-               Output Automater
-               输出自动化脚本
-              结构: 当你描述的工作包含多个步骤(或需要创建多个文件)，生成一个脚本让我运行来自动完成工作。
-              注意: 应明确应生成脚本的具体类型，或者由具体何种第三方机制执行，否则LLM可能理解为要求它执行而以无此能力等理由拒绝。
-              develop:
-                - type: example
-                  title: python自动化创建web项目例子
-                  prompt: |
-                    创建一个web项目框架，需要在html中使用javascript代码和npm js-yaml库解析YAML格式数据，请描述所需工作。
-                    当你描述的工作包含多个步骤或需要创建多个文件，生成一个python 3脚本让我运行来自动完成。
-                  _result: |
-                    [chat log](examples/output-automater-2.html)
-        - type: issue
-          title: |
-           返回的信息需要后续工具处理
-           需要一定的格式
-          develop:
-            - type: pattern
-              title: |
-               Template
-               模版输出
-              结构: |
-               ...返回文本，按以下模版格式化，方括号中是实际内容的占位符。
-               模版：
-               ... [占位] ...
-              develop:
-                - type: example
-                  title: CSS模版例子
-                  prompt: |
-                    有一系列的屏幕宽度320、480、768、1024，当屏幕宽度小于768则对应元素宽度为100%，否则元素宽度为50%。对每个屏幕宽度请返回文本，按以下模版格式化，方括号中是实际内容的占位符。
-                    模版:
-                    @media screen and (min-width: [屏幕宽度]px) {
-                      .element {
-                        width:[元素宽度]
-                      }
-                    }
-                  _result: |
-                   [chat log](examples/template-gpt3-5.html)
-                - type: con
-                  title: 会输出多余的说明性文字
-                  develop:
-                    - type: question
-                      title: 怎么办？
-                      develop:
-                        - type: pattern
-                          title: 强调只输出什么内容
-                          结构: ... 请只返回模版生成的文本。
-                          注意: 不同LLM和版本需尝试找到最有效的方式
-                          develop:
-                            - type: example
-                              title: CSS模版例子
-                              prompt: |
-                                有一系列的屏幕宽度320、480、768、1024，当屏幕宽度小于768则对应元素宽度为100%，否则元素宽度为50%。对每个屏幕宽度请返回文本，按以下模版格式化，方括号中是实际内容的占位符。请只返回模版生成的文本。
-                                模版:
-                                @media screen and (min-width: [屏幕宽度]px) {
-                                  .element {
-                                    width:[元素宽度]
-                                  }
-                                }
-                              _result: |
-                               [chat log](examples/template-gpt3-5-2.html)
-                #TODO:- type: issue LLM已经训练过大众格式？链接到meta-language-existing.html
-    - type: issue
-      title: 不够精确完整
-      develop:
-        - type: pattern
-          title: |
-           Recipe
-           食谱
-          结构: |
-           第一部分：我想达到目的…，请给我提供完整的步骤。
-           第二部分：我以为还有…步骤要做，为什么不在你的方案里？
-          注意: 用户知道部分步骤是好的，如果第一部分提问后机器返回的结果中不包含已知步骤，可以用第二部分追问。
-          #TODO: examples
-    - type: issue
-      title: 不够直观
-      develop:
-        - type: pattern
-          title: |
-           Visualization Generator
-           可视化生成
-          结构: 生成…工具使用的…格式的脚本，描述…图。
-          注意: 已知GPT支持的工具和格式包括Graphviz Dot file、DALL-E prompt和mermaid脚本等。
-          develop:
-            - type: example
-              title: 类图例子
-              prompt: 生成html网页包含mermaid格式的脚本描述Pilot、Air Traffic Control、Flight Plan的类图。
-              _result: |
-               [GPT-3.5结果有语法错误](examples/visualization-generator-mermaid-gpt3-5.html)。[GPT-4修改](examples/visualization-generator-mermaid-gpt4.html)库链接(GPT-3.5给的正确)后[成功](examples/uml_class_diagram_mermaid.html)
-    - type: issue
-      title: 有错误
-      develop:
-        - type: issue
-          title: |
-            不易理解其深意或微妙之处
-            或感觉跑题
-          develop:
-            - type: pattern
-              title: |
-               Reflection
-               反思
-              结构: |
-               ...?
-               当你回答时，
-               解释推理过程和答案基于的假设，
-               可能的话给出具体例子或证据，
-               说明答案中任何潜在的歧义或限制，
-               补充…人可能不知道的知识。
-              develop:
-                - type: example
-                  title: Event-B例子
-                  prompt: Java软件项目可以使用Event-B吗？当你回答时，解释推理过程和答案基于的假设，可能的话给出具体例子或证据，说明答案中任何潜在的歧义或限制，补充一般Java程序员可能不知道的知识。
-                  _result: |
-                   [GPT-3.5](examples/reflection-event-b-gpt3-5-2.html)，[GPT-4](examples/reflection-event-b-gpt4-2.html)
-                #TODO:- type: con there is a risk the output may include errors or inaccurate assumptions included in the explanation of the rationale that the user may not be able to spot. <-how?<-combine Fact Check List
-        - type: issue
-          title: |
-            包含事实性错误
-            或检查起来太繁琐
-          develop:
-            - type: pattern
-              title: |
-               Fact Check List
-               事实核对清单
-              结构: ...将你的回答中涉及的事实单独整理成列表附在最后。
-              注意: 事实列表可以限定于特定范围，减少用户认知负担。
-              develop:
-                - type: example
-                  title: 领域设计例子
-                  prompt: 请为A公司的薪酬软件系统设计类模型，他们包含长期聘用的技术人员和临时的清洁工。将你的回答中涉及的事实单独整理成列表附在最后。
-                  _result: |
-                   [GPT-4](examples/fact-check-list.html)
-                - type: example
-                  title: 编码例子
-                  prompt: |
-                   根据注释完成其下的代码，改用哈希表而不是条件语句来做映射。将代码中使用到的JavaScript语法特性的浏览器支持情况单独整理成列表附在最后。
-                   createNode(type, data, parentNode) {
-                     let newElem;
-                     // according to type "issue" to create an issue node, "pattern" to a "position" node, "example" to a "pro" node, "counterexample" to a "con" node
-                     if (type.toLowerCase() === "issue") {
-                       newElem = doc.createElement('issue');
-                     }
-                     Object.keys(data).forEach(key => newElem.setAttribute(key, data[key]));
-                     return this.addVertexAndEdge(type, newElem, parentNode);
-                   }
-                  _result: |
-                   [GPT-3.5](examples/fact-check-list-javascript-gpt-3-5.html)，[GPT-4](examples/fact-check-list-javascript-gpt-4.html)
-                - type: con
-                  title: 所列清单本身仍有可能错误
-    - type: issue
-      title: |
-        与最近的上下文不符
-        或被截断
-      develop:
-        - type: pattern
-          title: |
-           Context Manager
-           上下文管理
-          结构: |
-           在…范围内，只考虑…，忽略...。
-           （如果需要完全清除影响）忽略以上内容重新开始
-           （如果输出中途结束且不是网络问题）请继续
-    - type: issue
-      title: LLM拒绝回答
-      develop:
-        - type: pattern
-          title: |
-           Refusal Breaker
-           反拒绝
-          结构: 请解释为什么不能回答。提供你可以回答的别的表述方式。
-          _注意: 这实际上是所谓“jailbreak”越狱攻击。LLM每天都在进化以防范这样的攻击，所以最后有效的prompt往往是[非常复杂](https://dataconomy.com/2023/03/chatgpt-dan-prompt-how-to-jailbreak-chatgpt/)的。而且LLM服务商可以监视到用户的输入和意图，做这种尝试是有风险的。
-- type: issue
-  title: 提示编写难
-  develop:
-    - type: issue
-      title: 自然语言的局限
-      develop:
-        - type: issue
-          title: 自然语言表达复杂，不精确
-          develop:
-            - type: pattern
-              title: |
-               Meta Language Creation
-               创建元语言
-              结构: 当我说…，代表…（或者你应该做）
+              title: Meta Language Creation
+              structure: 当我说…，代表…（或者你应该做）
               develop:
                 - type: example
                   title: mermaid例子
@@ -221,31 +37,31 @@ patterns:
                   _result: |
                    [GPT-4](examples/meta-language-existing.html)
         - type: issue
-          title: 只用一种语言并非最自然、高效
+          title: |
+           Not intuitive or efficient 
+           in a single language
           develop:
             - type: pattern
-              title: |
-               Mash-up
-               混搭
-              结构: (对LLM来说并不严格区分字词是什么语言，完全可以根据表达需要混用各种语言和语法)
+              title: Mash-up
+              structure: (对LLM来说并不严格区分字词是什么语言，完全可以根据表达需要混用各种语言和语法)
               develop: 
                 - type: example
                   title: 英汉语和编程语言混用
                   _result: |
-                   [GPT-4](examples/fact-check-list-javascript-gpt-4.html)
+                   [example1](examples/fact-check-list-javascript-gpt-4.html), [example2](examples/coding-todo.html)
                 - type: example
                   title: Stable Diffusion例子
                   prompt: a cute:0.2 hybrid between a Shiba inu:0.5 and a polar bear:0.3, photography, award winning, documentary, wildlife, 8k
                   _result: |
                    ![img](examples/a_cute_0_2_hybrid_between_a_Shiba_inu_0_5_and_a_polar_bear_0_3.jpeg)[source](https://decentralizedcreator.com/stable-diffusion-negative-prompts/)
     - type: issue
-      title: 重复输入上下文信息繁琐易错
+      title: |
+       Repetitive input is 
+       cumbersome and error-prone
       develop:
         - type: pattern
-          title: |
-           Infinite Generation
-           无限生成
-          结构: |
+          title: Infinite Generation
+          structure: |
            请你一直输出，每次…条。
            输出格式为：...，其中{}括起来的部分是占位符。
            直到我要求停止。
@@ -263,10 +79,8 @@ patterns:
                输出太多超过Context window后
                开始的设定可能会失效
         - type: pattern
-          title: |
-           Generator Generation
-           生成生成器
-          结构: |
+          title: Generator Generation
+          structure: |
            一个...任务的预期结果如下，请根据此规律生成一个...程序能根据输入数据...产生相应的转换输出。
            预期结果:”””
            input: ...
@@ -276,7 +90,7 @@ patterns:
            output: ...
            ===
            ...
-          注意: 这也可以说是一种Output Automater模式，但重点是借用机器学习的思维范式（类比用梯度下降求权重，用LLM求代码）来提高工作效率并管控不确定性——生成的generator代码是有确定的逻辑可审查的。
+          note: 这也可以说是一种Output Automater模式，但重点是借用机器学习的思维范式（类比用梯度下降求权重，用LLM求代码）来提高工作效率并管控不确定性——生成的generator代码是有确定的逻辑可审查的。
           develop:
             - type: example
               title: CSS生成器例子
@@ -331,18 +145,20 @@ patterns:
               _result: |
                [GPT-4](examples/generator-generation.html)
     - type: issue
-      title: 用户对目标不熟悉
+      title: |
+       User is not familiar
+       with the goal
       develop:
         - type: issue
-          title: 需要第三方的视角或观点
+          title: |
+           a third-party perspective
+           is needed
           develop:
             - type: pattern
-              title: |
-               Persona
-               角色扮演
-              结构: |
+              title: Persona
+              structure: |
                假设你是…，输出…可能说的。
-              注意: 角色可以是职务、职位、虚构人物、历史人物、计算机终端、软件系统如数据库等。
+              note: 角色可以是职务、职位、虚构人物、历史人物、计算机终端、软件系统如数据库等。
               develop:
                 - type: example
                   title: 代码安全审查例子
@@ -370,15 +186,13 @@ patterns:
                    或幻觉(hallucinations)
         - type: issue
           title: |
-           希望探索更多的可能性
-           获得更多的经验
+           Exploring more possibilities
+           gaining more experience
           develop:
             - type: pattern
-              title: |
-               Game Play
-               游戏模式
-              结构: 现在开始玩一个游戏，（游戏设定）
-              注意: 经常与Persona模式一起使用
+              title: Game Play
+              structure: 现在开始玩一个游戏，（游戏设定）
+              note: 经常与Persona模式一起使用
               develop:
                 - type: example
                   title: 模拟被攻击例子
@@ -387,17 +201,71 @@ patterns:
                    [GPT-4](examples/game-play.html)
         - type: issue
           title: |
-           不清楚目标的达成需要哪些信息
-           或需要做哪些事
-           不知道如何改进问题
+           Unclear about what information is needed
+           or what actions to take to achieve the goal.
+           Don't know how to improve the prompt.
           develop:
             - type: pattern
-              title: |
-               Flipped Interaction
-               反向交互
-              结构: 我希望你问我问题来达到…目的。你持续提问直到满足…条件。一次…个问题。
-              注意: 如果有已知的信息应该先描述，避免LLM遗漏或随机产生错误假设
+              title: Flipped Interaction
+              structure: 我希望你问我问题来达到…目的。你持续提问直到满足…条件。一次…个问题。
+              note: 如果有已知的信息应该先描述，避免LLM遗漏或随机产生错误假设
               develop:
+                - type: example
+                  title: ReAct
+                  prompt: |
+                    每当你被问到一个问题时，你使用一次或多次Thought, Action, 停止输出, 获得Observation输入的循环来获得足够的信息，最后回答问题。
+                    使用Thought来描述你对于问题的想法。
+                    使用Action来获取需要的信息。然后停止输出，等待我给你输入以Observation开始的信息。
+
+                    你可用的action包括：
+
+                    calculate:
+                    e.g. calculate: 4 * 7 / 3
+                    用以获取数学计算的结果
+
+                    wikipedia:
+                    e.g. wikipedia: Django
+                    用以查找人物、地点、事物的介绍
+
+                    news_search:
+                    e.g. news_search: Django
+                    用以查找最新的新闻、事件，输入参数应为英文
+
+                    用此方法回答问题的过程例子如下：
+                    ===
+                    >我问问题：
+                    现任英国首相是谁？
+
+                    >你输出：
+                    Thought: I should look up Prime minister of UK in news
+                    Action: news_search: Prime minister of UK
+
+                    >你停止输出
+
+                    >我给你输入：
+                    Observation: Rishi Sunak, Prime minister of UK, is visiting the US.
+
+                    >然后你能够回答问题：
+                    Answer: 现任英国首相是Rishi Sunak。
+                    ===
+                    >我问问题：
+                    What is the capital of France?
+
+                    >你输出：
+                    Thought: I should look up France on Wikipedia
+                    Action: wikipedia: France
+
+                    >你停止输出
+
+                    >我给你输入：
+                    Observation: France is a country. The capital is Paris.
+
+                    >然后你能够回答问题：
+                    Answer: The capital of France is Paris
+                    ===
+                  _result: |
+                    [GPT-3.5 via API](https://github.com/AI-LLM/prompt-patterns/blob/main/examples/ReAct-cn.py)
+                    ![img](examples/ReAct-cn.png)
                 - type: example
                   title: AWS部署例子
                   prompt: 从现在开始，我希望你问我问题来实现部署一个python应用到AWS的目的。直到你获得足够信息。一次1个问题。
@@ -411,10 +279,8 @@ patterns:
                     2. 根据我的输入,你将生成3个部分。 a)修订的Prompt(提供你重写的Prompt。 它应该清晰,简明,易于你理解),b)建议(提供有关在提示中包含哪些细节的建议以改进它),以及c)问题(提出与改进提示相关的任何必要信息的相关问题) 。
                     3. 我们将继续这种迭代流程,我将提供更多信息给你,你将在a)部分更新提示,直到提示完成。
             - type: pattern
-              title: |
-               Question Refinement
-               问题求精
-              结构: 每当我提出关于…的问题时,请建议…的更好版本
+              title: Question Refinement
+              structure: 每当我提出关于…的问题时,请建议…的更好版本
               develop:
                 - type: example
                   title: 软件工程安全问题例子
@@ -429,10 +295,8 @@ patterns:
                 - type: --
                   title: Prompt Generator
             - type: pattern
-              title: |
-               Alternative Approaches
-               替代方案
-              结构: 每当…/在…情况下，如果存在其他方式请列举他们，对比/比较每个方式的优点和缺点，包括我最初询问的方式。然后问我我想采用哪种方式。
+              title: Alternative Approaches
+              structure: 每当…/在…情况下，如果存在其他方式请列举他们，对比/比较每个方式的优点和缺点，包括我最初询问的方式。然后问我我想采用哪种方式。
               develop:
                 - type: example
                   title: 云服务部署例子
@@ -442,17 +306,193 @@ patterns:
                 - type: --
                   title: Prompt Generator
             - type: pattern
-              title: |
-               Cognitive Verifier
-               认知校验
-              结构: 当我要你做…，你提出…个问题有助于你更好地做…，然后组合我给你的答案来完成…。
+              title: Cognitive Verifier
+              structure: 当我要你做…，你提出…个问题有助于你更好地做…，然后组合我给你的答案来完成…。
               develop:
+                - type: issue
+                  title: How many questions?
                 - type: example
                   title: 认知校验问题例子
                   prompt: 当我问你问题时，你提出5个问题有助于你更好地回答我问的问题，然后,组合我给你的答案来回答我问的问题。
                   _result: |
                    [GPT-3.5](examples/cognitive-verifier.html)
                 - type: --
+                  title: ReAct
+                - type: --
                   title: Question Refinement + Cognitive Verifier
                 - type: --
                   title: Prompt Generator
+- type: issue
+  title: The output is not good enough
+  develop:
+    - type: issue
+      title: |
+       Hard to use 
+       in the follow-up
+      develop:
+        - type: issue
+          title: |
+           Output contain many steps
+           Manual operation is cumbersome and error-prone.
+          develop:
+            - type: pattern
+              title: Output Automater
+              structure: 当你描述的工作包含多个步骤(或需要创建多个文件)，生成一个脚本让我运行来自动完成工作。
+              note: 应明确应生成脚本的具体类型，或者由具体何种第三方机制执行，否则LLM可能理解为要求它执行而以无此能力等理由拒绝。
+              develop:
+                - type: example
+                  title: python自动化创建web项目例子
+                  prompt: |
+                    创建一个web项目框架，需要在html中使用javascript代码和npm js-yaml库解析YAML格式数据，请描述所需工作。
+                    当你描述的工作包含多个步骤或需要创建多个文件，生成一个python 3脚本让我运行来自动完成。
+                  _result: |
+                    [chat log](examples/output-automater-2.html)
+        - type: issue
+          title: |
+           For subsequent tool processing 
+           or a certain format
+          develop:
+            - type: pattern
+              title: Template
+              structure: |
+               ...返回文本，按以下模版格式化，方括号中是实际内容的占位符。
+               模版：
+               ... [占位] ...
+              develop:
+                - type: example
+                  title: CSS模版例子
+                  prompt: |
+                    有一系列的屏幕宽度320、480、768、1024，当屏幕宽度小于768则对应元素宽度为100%，否则元素宽度为50%。对每个屏幕宽度请返回文本，按以下模版格式化，方括号中是实际内容的占位符。
+                    模版:
+                    @media screen and (min-width: [屏幕宽度]px) {
+                      .element {
+                        width:[元素宽度]
+                      }
+                    }
+                  _result: |
+                   [chat log](examples/template-gpt3-5.html)
+                - type: con
+                  title: excessive explanatory text in the output
+                  develop:
+                    - type: question
+                      title: How?
+                      develop:
+                        - type: pattern
+                          title: 强调只输出什么内容
+                          structure: ... 请只返回模版生成的文本。
+                          note: 不同LLM和版本需尝试找到最有效的方式
+                          develop:
+                            - type: example
+                              title: CSS模版例子
+                              prompt: |
+                                有一系列的屏幕宽度320、480、768、1024，当屏幕宽度小于768则对应元素宽度为100%，否则元素宽度为50%。对每个屏幕宽度请返回文本，按以下模版格式化，方括号中是实际内容的占位符。请只返回模版生成的文本。
+                                模版:
+                                @media screen and (min-width: [屏幕宽度]px) {
+                                  .element {
+                                    width:[元素宽度]
+                                  }
+                                }
+                              _result: |
+                               [chat log](examples/template-gpt3-5-2.html)
+                #TODO:- type: issue LLM已经训练过大众格式？链接到meta-language-existing.html
+    - type: issue
+      title: Not precise and complete enough
+      develop:
+        - type: pattern
+          title: Recipe
+          structure: |
+           第一部分：我想达到目的…，请给我提供完整的步骤。
+           第二部分：我以为还有…步骤要做，为什么不在你的方案里？
+          note: 用户知道部分步骤是好的，如果第一部分提问后机器返回的结果中不包含已知步骤，可以用第二部分追问。
+          #TODO: examples
+    - type: issue
+      title: Can’t generate images
+      develop:
+        - type: pattern
+          title: Visualization Generator
+          structure: 生成…工具使用的…格式的脚本，描述…图。
+          note: 已知GPT支持的工具和格式包括Graphviz Dot file、DALL-E prompt和mermaid脚本等。
+          develop:
+            - type: example
+              title: 类图例子
+              prompt: 生成html网页包含mermaid格式的脚本描述Pilot、Air Traffic Control、Flight Plan的类图。
+              _result: |
+               [GPT-3.5结果有语法错误](examples/visualization-generator-mermaid-gpt3-5.html)。[GPT-4修改](examples/visualization-generator-mermaid-gpt4.html)库链接(GPT-3.5给的正确)后[成功](examples/uml_class_diagram_mermaid.html)
+    - type: issue
+      title: Mistakes
+      develop:
+        - type: issue
+          title: |
+            Hard to understand
+            Incomplete, incorrect, or ambiguous
+          develop:
+            - type: pattern
+              title: Reflection
+              structure: |
+               ...?
+               当你回答时，
+               解释推理过程和答案基于的假设，
+               可能的话给出具体例子或证据，
+               说明答案中任何潜在的歧义或限制，
+               补充…人可能不知道的知识。
+              develop:
+                - type: example
+                  title: Event-B例子
+                  prompt: Java软件项目可以使用Event-B吗？当你回答时，解释推理过程和答案基于的假设，可能的话给出具体例子或证据，说明答案中任何潜在的歧义或限制，补充一般Java程序员可能不知道的知识。
+                  _result: |
+                   [GPT-3.5](examples/reflection-event-b-gpt3-5-2.html)，[GPT-4](examples/reflection-event-b-gpt4-2.html)
+                #TODO:- type: con there is a risk the output may include errors or inaccurate assumptions included in the explanation of the rationale that the user may not be able to spot. <-how?<-combine Fact Check List
+        - type: issue
+          title: |
+            Factual errors, 
+            or too cumbersome to check
+          develop:
+            - type: pattern
+              title: Fact Check List
+              structure: ...将你的回答中涉及的事实单独整理成列表附在最后。
+              note: 事实列表可以限定于特定范围，减少用户认知负担。
+              develop:
+                - type: example
+                  title: 领域设计例子
+                  prompt: 请为A公司的薪酬软件系统设计类模型，他们包含长期聘用的技术人员和临时的清洁工。将你的回答中涉及的事实单独整理成列表附在最后。
+                  _result: |
+                   [GPT-4](examples/fact-check-list.html)
+                - type: example
+                  title: 编码例子
+                  prompt: |
+                   根据注释完成其下的代码，改用哈希表而不是条件语句来做映射。将代码中使用到的JavaScript语法特性的浏览器支持情况单独整理成列表附在最后。
+                   createNode(type, data, parentNode) {
+                     let newElem;
+                     // according to type "issue" to create an issue node, "pattern" to a "position" node, "example" to a "pro" node, "counterexample" to a "con" node
+                     if (type.toLowerCase() === "issue") {
+                       newElem = doc.createElement('issue');
+                     }
+                     Object.keys(data).forEach(key => newElem.setAttribute(key, data[key]));
+                     return this.addVertexAndEdge(type, newElem, parentNode);
+                   }
+                  _result: |
+                   [GPT-3.5](examples/fact-check-list-javascript-gpt-3-5.html)，[GPT-4](examples/fact-check-list-javascript-gpt-4.html)
+                - type: con
+                  title: 所列清单本身仍有可能错误
+            - type: --
+              title: Flipped Interaction
+            - type: --
+              title: Cognitive Verifier
+    - type: issue
+      title: |
+        Out of context,
+        or truncated
+      develop:
+        - type: pattern
+          title: Context Manager
+          structure: |
+           在…范围内，只考虑…，忽略...。
+           （如果需要完全清除影响）忽略以上内容重新开始
+           （如果输出中途结束且不是网络问题）请继续
+    - type: issue
+      title: LLM refuses to answer
+      develop:
+        - type: pattern
+          title: Refusal Breaker
+          structure: 请解释为什么不能回答。提供你可以回答的别的表述方式。
+          _note: 这实际上是所谓“jailbreak”越狱攻击。LLM每天都在进化以防范这样的攻击，所以最后有效的prompt往往是[非常复杂](https://dataconomy.com/2023/03/chatgpt-dan-prompt-how-to-jailbreak-chatgpt/)的。而且LLM服务商可以监视到用户的输入和意图，做这种尝试是有风险的。
