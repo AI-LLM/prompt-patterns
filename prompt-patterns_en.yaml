@@ -270,7 +270,7 @@ patterns:
                     REFERENCE:
                     [ReAct: Synergizing Reasoning and Acting in Language Models](https://arxiv.org/abs/2210.03629)
                 - type: example
-                  title: Tool-use
+                  title: Tool use
                   prompt: |
                     The computer is answering questions. If the computer needs any current information to answer the question, it searches the web by saying SEARCH("query"), reads the snippets in the result, and then answers the question. If it needs to run any calculations, it says CALC(expression), and then answers the question. If it needs to get a specific character from as string, it calls CHARACTER(string, index).
                     Q: Who is the current president of the United States?
@@ -332,7 +332,7 @@ patterns:
                 - type: --
                   title: ReAct
                 - type: --
-                  title: Tool-use
+                  title: Tool use
                 - type: --
                   title: Question Refinement + Cognitive Verifier
                 - type: --
