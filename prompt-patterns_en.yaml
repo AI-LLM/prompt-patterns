@@ -266,6 +266,19 @@ patterns:
                   _result: |
                     [GPT-3.5 via API](https://github.com/AI-LLM/prompt-patterns/blob/main/examples/ReAct-cn.py)
                     ![img](examples/ReAct-cn.png)
+                  _note: |
+                    REFERENCE:
+                    [ReAct: Synergizing Reasoning and Acting in Language Models](https://arxiv.org/abs/2210.03629)
+                - type: example
+                  title: Tool-use
+                  prompt: |
+                    The computer is answering questions. If the computer needs any current information to answer the question, it searches the web by saying SEARCH("query"), reads the snippets in the result, and then answers the question. If it needs to run any calculations, it says CALC(expression), and then answers the question. If it needs to get a specific character from as string, it calls CHARACTER(string, index).
+                    Q: Who is the current president of the United States?
+                  _result: |
+                    [GPT-4](examples/tool-use-gpt-4.html)
+                  _note: |
+                    REFERENCE:
+                    [Sparks of Artificial General Intelligence: Early experiments with GPT-4](https://arxiv.org/abs/2303.12712) chapter 5.1
                 - type: example
                   title: AWS部署例子
                   prompt: 从现在开始，我希望你问我问题来实现部署一个python应用到AWS的目的。直到你获得足够信息。一次1个问题。
@@ -318,6 +331,8 @@ patterns:
                    [GPT-3.5](examples/cognitive-verifier.html)
                 - type: --
                   title: ReAct
+                - type: --
+                  title: Tool-use
                 - type: --
                   title: Question Refinement + Cognitive Verifier
                 - type: --
