@@ -90,7 +90,7 @@
 		// from the onLoad event handler of the document (see below).
 		function main(container)
 		{
-			let wndEdit = new mxWindow('Control', document.getElementById("edit"), 10, 60, 240, 300, true, true);
+			let wndEdit = new mxWindow('Control', document.getElementById("edit"), 10, 100, 240, 300, true, true);
 			wndEdit.setMaximizable(true);
 			wndEdit.setScrollable(true);
 			wndEdit.setResizable(true);
@@ -754,6 +754,10 @@
 	
 					div.appendChild(form.getTable());
 					mxUtils.br(div);
+
+					//add incoming edges to selection
+					let edges = graph.getIncomingEdges(cell);
+					graph.addSelectionCells(edges);
 				}
 			}
 
