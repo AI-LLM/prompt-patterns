@@ -295,6 +295,12 @@ patterns:
                     1. 你的第一条响应将询问我这个Prompt是有关什么的。 我会提供我的答案,但我们需要通过继续迭代来改进它,方法是继续下一个步骤。
                     2. 根据我的输入,你将生成3个部分。 a)修订的Prompt(提供你重写的Prompt。 它应该清晰,简明,易于你理解),b)建议(提供有关在提示中包含哪些细节的建议以改进它),以及c)问题(提出与改进提示相关的任何必要信息的相关问题) 。
                     3. 我们将继续这种迭代流程,我将提供更多信息给你,你将在a)部分更新提示,直到提示完成。
+                - type: question
+                  title: IDE自动套用？
+                  description: |
+                   1 生成一个函数将两数相加
+                   2 生成一个函数将两个浮点数相加，返回一个浮点数，小数点后取2位...
+                   希望IDE自动发现1缺少的信息，自动套用合适的提示模式达到2的效果。
             - type: pattern
               title: |
                Question Refinement
@@ -313,6 +319,8 @@ patterns:
                    [GPT-4](examples/question-refinement-cognitive-verifier.html)
                 - type: --
                   title: Prompt Generator
+                - type: --
+                  title: IDE自动套用？
             - type: pattern
               title: |
                Alternative Approaches
@@ -347,6 +355,8 @@ patterns:
                   title: Question Refinement + Cognitive Verifier
                 - type: --
                   title: Prompt Generator
+                - type: --
+                  title: IDE自动套用？
 - type: issue
   title: 结果不够好
   develop:
