@@ -319,6 +319,7 @@
 					// Installs a handler for clicks on the overlay							
 					overlay.addListener(mxEvent.CLICK, function(sender, evt2)
 					{
+						moveControlWnd(cell,true);
 						graph.clearSelection();
 						
 						var v2;
@@ -364,6 +365,7 @@
 					// Installs a handler for clicks on the overlay							
 					overlay.addListener(mxEvent.CLICK, function(sender, evt2)
 					{
+						moveControlWnd(cell,true);
 						graph.clearSelection();
 						
 						var v2;
@@ -409,6 +411,7 @@
 					// Installs a handler for clicks on the overlay							
 					overlay.addListener(mxEvent.CLICK, function(sender, evt2)
 					{
+						moveControlWnd(cell,true);
 						graph.clearSelection();
 						
 						var v2;
@@ -456,6 +459,7 @@
 					// Installs a handler for clicks on the overlay							
 					overlay.addListener(mxEvent.CLICK, function(sender, evt2)
 					{
+						moveControlWnd(cell,true);
 						graph.clearSelection();
 						
 						var v2;
@@ -690,6 +694,22 @@
 				selectionChanged(graph);
 
 			}
+			function moveControlWnd(cell,left=true){
+				//move the wndEdit to the right of the cell
+				let geo = graph.getCellGeometry(cell);
+				let x = graph.view.scale*(geo.x+graph.view.translate.x);
+				let y = graph.view.scale*(geo.y+graph.view.translate.y);
+				if (left){
+					wndEdit.setLocation(Math.max(0,x-wndEdit.table.clientWidth-10), y);
+
+				}
+				else{
+					wndEdit.setLocation(x+geo.width+20, y);
+				}					
+				setTimeout(function(){
+					wndEdit.fit();
+				}, 100);
+			}
 			/**
 			 * Updates the properties panel
 			 */
@@ -715,14 +735,8 @@
 					if (cell.isEdge()){
 						return;
 					}
-					//move the wndEdit to the left of the cell
-					let geo = graph.getCellGeometry(cell);
-					let x = graph.view.scale*(geo.x+graph.view.translate.x);
-					let y = graph.view.scale*(geo.y+graph.view.translate.y);
-					wndEdit.setLocation(Math.max(0,x-wndEdit.table.clientWidth-10), y);
-					setTimeout(function(){
-						wndEdit.fit();
-					}, 100);
+					//move the wndEdit to the right of the cell
+					moveControlWnd(cell,false);
 
 					// Writes the title
 					var center = document.createElement('center');
