@@ -309,7 +309,7 @@ patterns:
               develop:
                 - type: example
                   title: 软件工程安全问题例子
-                  prompt: 从现在开始,每当我提出关于软件工件的安全性问题时,请建议使用包含我使用的语言或框架的特定安全风险信息的问题的更好版本,并问我是否希望使用您的问题代替。
+                  prompt: 从现在开始,每当我提出关于软件工程的安全性问题时,请建议包含我使用的语言或框架的特定安全风险信息的问题的更好版本,并问我是否希望使用您的问题代替。
                   _result: |
                    [GPT-4](examples/question-refinement-pattern.html)
                 - type: example
