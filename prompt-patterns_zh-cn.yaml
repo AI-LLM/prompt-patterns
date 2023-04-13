@@ -300,7 +300,7 @@ patterns:
                   description: |
                    1 生成一个函数将两数相加
                    2 生成一个函数将两个浮点数相加，返回一个浮点数，小数点后取2位...
-                   希望IDE自动发现1缺少的信息，自动套用合适的提示模式达到2的效果。
+                   希望IDE自动发现1缺少的信息，自动套用合适的提示模式，自动跟LLM交互，达到2的效果。
             - type: pattern
               title: |
                Question Refinement
