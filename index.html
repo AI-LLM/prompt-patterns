@@ -561,6 +561,92 @@
 					}
 				};
 				
+				function findMatchingCells(graph, urlParams) {
+					const matchingCells = [];
+					const model = graph.getModel();
+					const cells = model.cells;
+
+					// 遍历所有 cells
+					for (let key in cells) {
+						const cell = cells[key];
+						const cellValue = cell.value;
+
+						if (cellValue) {
+							let match = true;
+
+							// 遍历 urlParams，检查 cell 属性是否匹配
+							for (let urlKey in urlParams) {
+								if (urlKey !== 'lang') {
+									// 使用 hasAttribute 和 getAttribute 方法进行比较
+									if (cellValue.hasAttribute(urlKey) && cellValue.getAttribute(urlKey) === urlParams[urlKey]) {
+										continue;
+									} else {
+										match = false;
+										break;
+									}
+								}
+							}
+
+							// 如果所有属性值匹配，将 cell 添加到匹配的 cells 列表中
+							if (match) {
+								matchingCells.push(cell);
+							}
+						}
+					}
+
+					return matchingCells;
+				}
+				function getConnectedEdges(graph, cells) {
+					const connectedEdges = [];
+
+					for (const cell of cells) {
+						if (graph.model.isVertex(cell)) {
+							const edges = graph.model.getEdges(cell);
+							for (const edge of edges) {
+								if (!connectedEdges.includes(edge)) {
+									connectedEdges.push(edge);
+								}
+							}
+						}
+					}
+
+					return connectedEdges;
+				}
+
+				function zoomToFitCells(graph, cells, includeConnectedEdges = false) {
+					if (cells.length > 0) {
+						const model = graph.getModel();
+						model.beginUpdate();
+
+						try {
+							let allCells = [...cells];
+
+							// 如果包括 connectedEdges，则获取与匹配的 cells 相连的所有 edges
+							if (includeConnectedEdges) {
+								const connectedEdges = getConnectedEdges(graph, cells);
+								allCells = allCells.concat(connectedEdges);
+							}
+
+							// 获取 allCells 的边界
+							const bounds = graph.getBoundingBoxFromGeometry(allCells, true);
+
+							// 将 allCells 设置为选中状态
+							graph.setSelectionCells(allCells);
+
+							// 计算视图缩放比例，以确保 allCells 可见
+							const clientWidth = graph.container.clientWidth;
+							const clientHeight = graph.container.clientHeight;
+							const scale = Math.min(clientWidth / bounds.width, clientHeight / bounds.height) * 0.8;
+
+							// 设置缩放比例和滚动条位置以适应 allCells
+							graph.view.scaleAndTranslate(scale, (clientWidth - bounds.width * scale) / 2 / scale - bounds.x, (clientHeight - bounds.height * scale) / 2 / scale - bounds.y);
+
+						} finally {
+							model.endUpdate();
+						}
+					}
+				}
+
 				// Adds cells to the model in a single step
 				graph.getModel().beginUpdate();
 				var r1=null,r2=null;
@@ -618,6 +704,9 @@
 							patterns.parseYaml(text, nodeCreator);
 							setTimeout(function(){
 								executeLayout();
+								const matchingCells = findMatchingCells(graph, urlParams);
+								console.log(matchingCells);
+								if (matchingCells.length>0) zoomToFitCells(graph, matchingCells, true);
 							}, 500);
 						}
 					}
@@ -839,29 +928,32 @@
 		};
 	
 		var langValue = navigator.language.toLowerCase();
+		var urlParams = [];
 
 		document.addEventListener('DOMContentLoaded', () => {
-			// 获取当前URL
-			var currentURL = window.location.href;
+			function getUrlParams() {
+				const url = window.location.href;
+				const params = {};
+				const queryString = url.split('?')[1];
 
-			// 检查URL是否包含lang参数
-			if (currentURL.indexOf('?') !== -1) {
-				// 从URL中提取所有参数
-				var queryString = currentURL.split('?')[1];
-
-				// 将参数字符串拆分为一个数组
-				var params = queryString.split('&');
-
-				// 遍历参数数组，查找lang参数
-				for (var i = 0; i < params.length; i++) {
-					var param = params[i];
-					if (param.indexOf('lang=') === 0) {
-						// 找到了lang参数，提取其值
-						langValue = param.split('=')[1].toLowerCase();
-						// 只需要处理第一个找到的lang参数，因此退出循环
-						break;
+				if (queryString) {
+					const queryArray = queryString.split('&');
+					for (let i = 0; i < queryArray.length; i++) {
+						const keyValue = queryArray[i].split('=');
+						const key = decodeURIComponent(keyValue[0]);
+						const value = decodeURIComponent(keyValue[1] || '');
+						params[key] = value;
 					}
 				}
+
+				return params;
+			}
+
+			urlParams = getUrlParams();
+			console.log(urlParams);
+
+			if (urlParams['lang']) {
+				langValue = urlParams['lang']
 			}
 
 			main(document.getElementById('graphContainer'));
