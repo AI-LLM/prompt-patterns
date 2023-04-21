@@ -566,6 +566,12 @@
 					const model = graph.getModel();
 					const cells = model.cells;
 
+					// 检查是否有除了 'lang' 之外的 urlKeys
+					const hasOtherKeys = Object.keys(urlParams).some((key) => key !== 'lang');
+					if (!hasOtherKeys) {
+						return matchingCells;
+					}
+
 					// 遍历所有 cells
 					for (let key in cells) {
 						const cell = cells[key];
