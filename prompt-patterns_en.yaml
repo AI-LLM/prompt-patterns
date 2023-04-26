@@ -15,25 +15,23 @@ patterns:
           develop:
             - type: pattern
               title: Meta Language Creation
-              structure: 当我说…，代表…（或者你应该做）
+              structure: When I say X, I mean Y (or would like you to do Y)
               develop:
                 - type: example
-                  title: mermaid例子
+                  title: mermaid example
                   prompt: |
                     ...
-                    以上是mermaid格式的类图。从现在开始当我说has-a，表示 “1” *-- “1”。
-                    在其中增加一个Route类，FlightPlan has-a Route
+                    Above is the class diagram in mermaid. From now on when I say "has-a", I mean “1” *-- “1”.
+                    Please add a class Route, FlightPlan has-a Route.
                   _result: |
                    [GPT-3.5](examples/meta-language-creation.html)
                 - type: counterexample
-                  title: |
-                   mermaid反例
-                   LLM的训练集中已经存在很多元语言
-                   有时可以直接使用
+                  title: mermaid counter example
+                  description: There are already lots of meta languages in LLM's pretraining which we can use directly.
                   prompt: |
                     ...
-                    以上是mermaid格式的类图。
-                    在其中增加一个Route类，FlightPlan composite 1 Route
+                    Above is the class diagram in mermaid.
+                    Please add a class Route，FlightPlan composite 1 Route
                   _result: |
                    [GPT-4](examples/meta-language-existing.html)
         - type: issue
@@ -50,7 +48,7 @@ patterns:
                   _result: |
                    [example1](examples/fact-check-list-javascript-gpt-4.html), [example2](examples/coding-todo.html)
                 - type: example
-                  title: Stable Diffusion例子
+                  title: Stable Diffusion example
                   prompt: a cute:0.2 hybrid between a Shiba inu:0.5 and a polar bear:0.3, photography, award winning, documentary, wildlife, 8k
                   _result: |
                    ![img](examples/a_cute_0_2_hybrid_between_a_Shiba_inu_0_5_and_a_polar_bear_0_3.jpeg)[source](https://decentralizedcreator.com/stable-diffusion-negative-prompts/)
@@ -213,60 +211,44 @@ patterns:
                 - type: example
                   title: ReAct
                   prompt: |
-                    每当你被问到一个问题时，你使用一次或多次Thought, Action, 停止输出, 获得Observation输入的循环来获得足够的信息，最后回答问题。
-                    使用Thought来描述你对于问题的想法。
-                    使用Action来获取需要的信息。然后停止输出，等待我给你输入以Observation开始的信息。
+                    You run in a loop of Thought, Action, PAUSE, Observation.
+                    At the end of the loop you output an Answer
+                    Use Thought to describe your thoughts about the question you have been asked.
+                    Use Action to run one of the actions available to you - then return PAUSE.
+                    Observation will be the result of running those actions.
 
-                    你可用的action包括：
+                    Your available actions are:
 
                     calculate:
                     e.g. calculate: 4 * 7 / 3
-                    用以获取数学计算的结果
+                    Runs a calculation and returns the number - uses Python so be sure to use floating point syntax if necessary
 
                     wikipedia:
                     e.g. wikipedia: Django
-                    用以查找人物、地点、事物的介绍
+                    Returns a summary from searching Wikipedia
 
-                    news_search:
-                    e.g. news_search: Django
-                    用以查找最新的新闻、事件，输入参数应为英文
+                    simon_blog_search:
+                    e.g. simon_blog_search: Django
+                    Search Simon's blog for that term
 
-                    用此方法回答问题的过程例子如下：
-                    ===
-                    >我问问题：
-                    现任英国首相是谁？
+                    Always look things up on Wikipedia if you have the opportunity to do so.
 
-                    >你输出：
-                    Thought: I should look up Prime minister of UK in news
-                    Action: news_search: Prime minister of UK
+                    Example session:
 
-                    >你停止输出
-
-                    >我给你输入：
-                    Observation: Rishi Sunak, Prime minister of UK, is visiting the US.
-
-                    >然后你能够回答问题：
-                    Answer: 现任英国首相是Rishi Sunak。
-                    ===
-                    >我问问题：
-                    What is the capital of France?
-
-                    >你输出：
+                    Question: What is the capital of France?
                     Thought: I should look up France on Wikipedia
                     Action: wikipedia: France
+                    PAUSE
 
-                    >你停止输出
+                    You will be called again with this:
 
-                    >我给你输入：
                     Observation: France is a country. The capital is Paris.
 
-                    >然后你能够回答问题：
+                    You then output:
+
                     Answer: The capital of France is Paris
-                    ===
-                  _result: |
-                    [GPT-3.5 via API](https://github.com/AI-LLM/prompt-patterns/blob/main/examples/ReAct-cn.py)
-                    ![img](examples/ReAct-cn.png)
                   _note: |
+                    [source](https://til.simonwillison.net/llms/python-react-pattern)
                     REFERENCE:
                     [ReAct: Synergizing Reasoning and Acting in Language Models](https://arxiv.org/abs/2210.03629)
                 - type: example
@@ -287,10 +269,9 @@ patterns:
                 - type: example
                   title: Prompt Generator
                   prompt: |
-                    我希望你成为我的Prompt创建者。 你的目标是帮助我制定我需要的最佳Prompt。 Prompt将由你,ChatGPT使用。 你会遵循以下流程:
-                    1. 你的第一条响应将询问我这个Prompt是有关什么的。 我会提供我的答案,但我们需要通过继续迭代来改进它,方法是继续下一个步骤。
-                    2. 根据我的输入,你将生成3个部分。 a)修订的Prompt(提供你重写的Prompt。 它应该清晰,简明,易于你理解),b)建议(提供有关在提示中包含哪些细节的建议以改进它),以及c)问题(提出与改进提示相关的任何必要信息的相关问题) 。
-                    3. 我们将继续这种迭代流程,我将提供更多信息给你,你将在a)部分更新提示,直到提示完成。
+                    I want you to become my Prompt Creator. Your goal is to help me craft the best possible prompt for my needs. The prompt will be used by you, ChatGPT. You will follow the following process: 1. Your first response will be to ask me what the prompt should be about. I will provide my answer, but we will need to improve it through continual iterations by going through the next steps. 2. Based on my input, you will generate 3 sections. a) Revised prompt (provide your rewritten prompt. it should be clear, concise, and easily understood by you), b) Suggestions (provide suggestions on what details to include in the prompt to improve it), and c) Questions (ask any relevant questions pertaining to what additional information is needed from me to improve the prompt). 3. We will continue this iterative process with me providing additional information to you and you updating the prompt in the Revised prompt section until it's complete.
+                  _note: |
+                    [source](https://www.skool.com/chatgpt/promptgenerator?p=1e5ede93)
             - type: pattern
               title: Question Refinement
               structure: 每当我提出关于…的问题时,请建议…的更好版本
