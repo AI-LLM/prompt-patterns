@@ -148,7 +148,7 @@
 					var encoder = new mxCodec();
 					var node = encoder.encode(graph.getModel());
 					mxUtils.popup("The following data saved:\n"+mxUtils.getPrettyXml(node), true);
-					localStorage.setItem("PromptPatterns", mxUtils.getXml(node));
+					localStorage.setItem(projectName, mxUtils.getXml(node));
 				}));
 				document.getElementById("controls").appendChild(mxUtils.button('Del selection', function()
 				{
@@ -659,7 +659,7 @@
 				try
 				{
 					//load model from local storage
-					var model = localStorage.getItem('PromptPatterns');
+					var model = localStorage.getItem(projectName);
 					if (model){
 						doc = mxUtils.parseXml(model);
 						var node = doc.documentElement;
@@ -683,6 +683,8 @@
 
 						r1 = graph.insertVertex(graph.getDefaultParent(), null, p, 0, 0, 120, 60, 'issue');
 						//r2 = graph.insertVertex(graph.getDefaultParent(), null, p, 0, 300, 120, 60, 'issue');
+
+						if (projectName==="PromptPatterns"){
 
 						//TODO: load patterns from yaml even there is a local saved model
 						var req = mxUtils.load("prompt-patterns_"+langValue+".yaml");
@@ -714,6 +716,7 @@
 								console.log(matchingCells);
 								if (matchingCells.length>0) zoomToFitCells(graph, matchingCells, true);
 							}, 500);
+						}
 						}
 					}
 				}
@@ -934,6 +937,7 @@
 		};
 	
 		var langValue = navigator.language.toLowerCase();
+		var projectName = "PromptPatterns";
 		var urlParams = [];
 
 		document.addEventListener('DOMContentLoaded', () => {
@@ -960,6 +964,9 @@
 
 			if (urlParams['lang']) {
 				langValue = urlParams['lang']
+			}
+			if (urlParams['proj']) {
+				projectName = urlParams['proj']
 			}
 
 			main(document.getElementById('graphContainer'));
