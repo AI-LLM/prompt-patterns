@@ -143,6 +143,54 @@
 				graph.getModel().addListener(mxEvent.UNDO, listener); 
 				graph.getView().addListener(mxEvent.UNDO, listener);
 
+				document.getElementById("controls").appendChild(mxUtils.button('Connect', function()
+				{
+					if (graph.isEnabled() && graph.getSelectionCells()){
+						graph.getModel().beginUpdate();
+						try
+						{
+							const selectedCells=graph.getSelectionCells();
+							if (selectedCells.length>1)
+							{
+let source = null;
+let target = null;
+
+for (let i = 0; i < selectedCells.length-1; i++) {
+    for (let j = i+1; j < selectedCells.length; j++) {
+        let possibleSource = selectedCells[i];
+        let possibleTarget = selectedCells[j];
+
+    	if (possibleSource.isEdge() || possibleTarget.isEdge()) continue;
+        if (possibleSource.style === 'issue') {
+            source = possibleSource;
+            target = possibleTarget;
+        } else if (possibleSource.style === 'position' && possibleTarget.style === 'issue') {
+            source = possibleSource;
+            target = possibleTarget;
+        } else if ((possibleSource.style === 'pro' || possibleSource.style === 'con') && possibleTarget.style === 'position') {
+            source = possibleSource;
+            target = possibleTarget;
+        }
+	    if (source && target) {
+	    	graph.insertEdge(graph.getDefaultParent(), null, '', target, source, 'ibis');
+	    	source = null;
+	    	target = null;
+	    }
+    }
+}
+
+							}
+						}
+						catch (e)
+						{
+							console.error(e);
+						}
+						finally
+						{
+							graph.getModel().endUpdate();
+						}
+					}
+				}));
 				document.getElementById("controls").appendChild(mxUtils.button('Save', function()
 				{
 					var encoder = new mxCodec();
