@@ -1015,6 +1015,8 @@ for (let i = 0; i < selectedCells.length-1; i++) {
 			}
 			if (urlParams['proj']) {
 				projectName = urlParams['proj']
+				document.title = projectName
+				document.getElementsByTagName("header")[0].innerHTML = projectName;
 			}
 
 			main(document.getElementById('graphContainer'));
