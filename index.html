@@ -708,6 +708,10 @@ for (let i = 0; i < selectedCells.length-1; i++) {
 				{
 					//load model from local storage
 					var model = localStorage.getItem(projectName);
+					if (!model){
+						var req = mxUtils.load(projectName+".xml");
+						var model = req.getText();
+					}
 					if (model){
 						doc = mxUtils.parseXml(model);
 						var node = doc.documentElement;

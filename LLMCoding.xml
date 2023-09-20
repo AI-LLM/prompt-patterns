@@ -1,0 +1,681 @@
+<mxGraphModel>
+  <root>
+    <mxCell id="0" />
+    <mxCell id="1" parent="0" />
+    <issue title="Issue&#xa;Mapping" _version="0.1" id="2">
+      <mxCell style="issue" parent="1" vertex="1">
+        <mxGeometry y="340" width="120" height="60" as="geometry" />
+      </mxCell>
+    </issue>
+    <issue title="隐私" description="" id="3">
+      <mxCell style="issue" parent="1" vertex="1">
+        <mxGeometry x="245" y="208.625" width="100" height="32" as="geometry" />
+      </mxCell>
+    </issue>
+    <mxCell id="4" value="" style="ibis;noEdgeStyle=1;orthogonal=1;" parent="1" source="2" target="3" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="132" y="350" />
+          <mxPoint x="208" y="224.625" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <issue title="txt2code的正确度" description="" id="5">
+      <mxCell style="issue" parent="1" vertex="1">
+        <mxGeometry x="240" y="292" width="110" height="32" as="geometry" />
+      </mxCell>
+    </issue>
+    <mxCell id="6" value="" style="ibis;noEdgeStyle=1;orthogonal=1;" parent="1" source="2" target="5" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="134" y="360" />
+          <mxPoint x="208" y="308" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <issue title="复杂逻辑" description="" id="7">
+      <mxCell style="issue" parent="1" vertex="1">
+        <mxGeometry x="565" y="214" width="100" height="32" as="geometry" />
+      </mxCell>
+    </issue>
+    <mxCell id="8" value="" style="ibis;noEdgeStyle=1;orthogonal=1;" parent="1" source="5" target="7" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="382" y="302.5" />
+          <mxPoint x="458" y="230" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <issue title="简单逻辑" description="" id="9">
+      <mxCell style="issue" parent="1" vertex="1">
+        <mxGeometry x="565" y="338" width="100" height="32" as="geometry" />
+      </mxCell>
+    </issue>
+    <mxCell id="10" value="" style="ibis;noEdgeStyle=1;orthogonal=1;" parent="1" source="5" target="9" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="382" y="313.5" />
+          <mxPoint x="458" y="354" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <position title="breakdown" structure="" note="" id="11">
+      <mxCell style="position" parent="1" vertex="1">
+        <mxGeometry x="895" y="122" width="100" height="32" as="geometry" />
+      </mxCell>
+    </position>
+    <mxCell id="12" value="" style="ibis;noEdgeStyle=1;orthogonal=1;" parent="1" source="7" target="11" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="772" y="222.66666666666666" />
+          <mxPoint x="848" y="143.5" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <position title="Iterations" structure="" note="" id="13">
+      <mxCell style="position" parent="1" vertex="1">
+        <mxGeometry x="895" y="368" width="100" height="32" as="geometry" />
+      </mxCell>
+    </position>
+    <mxCell id="14" value="" style="ibis;noEdgeStyle=1;orthogonal=1;" parent="1" source="9" target="13" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="774" y="354" />
+          <mxPoint x="848" y="384" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <issue title="人工效率低" description="" id="15">
+      <mxCell style="issue" parent="1" vertex="1">
+        <mxGeometry x="1170" y="272.75" width="100" height="32" as="geometry" />
+      </mxCell>
+    </issue>
+    <mxCell id="16" value="" style="ibis;noEdgeStyle=1;orthogonal=1;" parent="1" source="11" target="15" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="1042" y="138" />
+          <mxPoint x="1118" y="288.75" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <position title="Self-planning" structure="" note="Self-planning Code Generation with Large Language Models" id="17">
+      <mxCell style="position" parent="1" vertex="1">
+        <mxGeometry x="1410" y="385" width="100" height="32" as="geometry" />
+      </mxCell>
+    </position>
+    <mxCell id="18" value="" style="ibis;noEdgeStyle=1;orthogonal=1;" parent="1" source="15" target="17" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="1322" y="296.0833333333333" />
+          <mxPoint x="1398" y="401" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <position title="中间提示" structure="" note="" id="19">
+      <mxCell style="position" parent="1" vertex="1">
+        <mxGeometry x="1170" y="334.75" width="100" height="32" as="geometry" />
+      </mxCell>
+    </position>
+    <mxCell id="20" value="" style="ibis;noEdgeStyle=1;orthogonal=1;" parent="1" source="9" target="19" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="772" y="346.6666666666667" />
+          <mxPoint x="810" y="338" />
+          <mxPoint x="1080" y="338" />
+          <mxPoint x="1118" y="358.0833333333333" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <issue title="人工效率低" description="" id="21">
+      <mxCell style="issue" parent="1" vertex="1">
+        <mxGeometry x="2030" y="308" width="100" height="32" as="geometry" />
+      </mxCell>
+    </issue>
+    <mxCell id="22" value="" style="ibis;noEdgeStyle=1;orthogonal=1;" parent="1" source="13" target="21" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="1042" y="384" />
+          <mxPoint x="1080" y="572" />
+          <mxPoint x="1360" y="572" />
+          <mxPoint x="1360" y="572" />
+          <mxPoint x="1560" y="572" />
+          <mxPoint x="1560" y="572" />
+          <mxPoint x="1980" y="572" />
+          <mxPoint x="2018" y="329.5" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <position title="Least-to-most" structure="" note="" id="23">
+      <mxCell style="position" parent="1" vertex="1">
+        <mxGeometry x="1410" y="261" width="100" height="32" as="geometry" />
+      </mxCell>
+    </position>
+    <mxCell id="24" value="" style="ibis;noEdgeStyle=1;orthogonal=1;" parent="1" source="15" target="23" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="1322" y="281.4166666666667" />
+          <mxPoint x="1398" y="277" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <issue title="人工效率低" description="" id="25">
+      <mxCell style="issue" parent="1" vertex="1">
+        <mxGeometry x="1410" y="447" width="100" height="32" as="geometry" />
+      </mxCell>
+    </issue>
+    <mxCell id="26" value="" style="ibis;noEdgeStyle=1;orthogonal=1;" parent="1" source="19" target="25" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="1322" y="350.75" />
+          <mxPoint x="1398" y="463" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <position title="主动信息跟踪" structure="" note="" id="27">
+      <mxCell style="position" parent="1" vertex="1">
+        <mxGeometry x="895" y="214" width="100" height="32" as="geometry" />
+      </mxCell>
+    </position>
+    <mxCell id="28" value="" style="ibis;noEdgeStyle=1;orthogonal=1;" parent="1" source="7" target="27" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="772" y="237.33333333333334" />
+          <mxPoint x="848" y="230" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <position title="APE" structure="" note="Large language models are human-level prompt engineers" id="29">
+      <mxCell style="position" parent="1" vertex="1">
+        <mxGeometry x="2290" y="323" width="100" height="32" as="geometry" />
+      </mxCell>
+    </position>
+    <mxCell id="30" value="" style="ibis;noEdgeStyle=1;orthogonal=1;" parent="1" source="21" target="29" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="2142" y="329.5" />
+          <mxPoint x="2218" y="339" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <position title="Self-program, Learning to Program" structure="" note="Learning to Program with Natural Language" id="31">
+      <mxCell style="position" parent="1" vertex="1">
+        <mxGeometry x="2230" y="261" width="220" height="32" as="geometry" />
+      </mxCell>
+    </position>
+    <mxCell id="32" value="" style="ibis;noEdgeStyle=1;orthogonal=1;" parent="1" source="21" target="31" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="2142" y="318.5" />
+          <mxPoint x="2218" y="277" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <position title="RA_Code_gen" structure="REDCODER&#xa;CodeT5+" note="Retrieval Augmented Code Generation and Summarization" id="33">
+      <mxCell style="position" parent="1" vertex="1">
+        <mxGeometry x="2290" y="447" width="100" height="32" as="geometry" />
+      </mxCell>
+    </position>
+    <mxCell id="34" value="" style="ibis;noEdgeStyle=1;orthogonal=1;" parent="1" source="9" target="33" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="772" y="361.3333333333333" />
+          <mxPoint x="810" y="430" />
+          <mxPoint x="1080" y="430" />
+          <mxPoint x="1080" y="602" />
+          <mxPoint x="1360" y="602" />
+          <mxPoint x="1360" y="602" />
+          <mxPoint x="1560" y="602" />
+          <mxPoint x="1560" y="602" />
+          <mxPoint x="1980" y="602" />
+          <mxPoint x="1980" y="602" />
+          <mxPoint x="2180" y="602" />
+          <mxPoint x="2218" y="468.5" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <position title="Pseudocode" structure="" note="" id="35">
+      <mxCell style="position" parent="1" vertex="1">
+        <mxGeometry x="1720" y="448" width="100" height="32" as="geometry" />
+      </mxCell>
+    </position>
+    <mxCell id="36" value="" style="ibis;noEdgeStyle=1;orthogonal=1;" parent="1" source="25" target="35" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="1522" y="457.5" />
+          <mxPoint x="1598" y="464" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <position title="generated knowledge" structure="" note="" id="39">
+      <mxCell style="position" parent="1" vertex="1">
+        <mxGeometry x="1700" y="510" width="140" height="32" as="geometry" />
+      </mxCell>
+    </position>
+    <mxCell id="40" value="" style="ibis;noEdgeStyle=1;orthogonal=1;" parent="1" source="25" target="39" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="1522" y="468.5" />
+          <mxPoint x="1598" y="526" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <issue title="小模型能力不足" description="" id="41">
+      <mxCell style="issue" parent="1" vertex="1">
+        <mxGeometry x="2030" y="370" width="100" height="32" as="geometry" />
+      </mxCell>
+    </issue>
+    <mxCell id="42" value="" style="ibis;noEdgeStyle=1;orthogonal=1;" parent="1" source="39" target="41" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="1942" y="526" />
+          <mxPoint x="2018" y="386" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <position title="ChatGPT生成exemplar" structure="" note="" id="43">
+      <mxCell style="position" parent="1" vertex="1">
+        <mxGeometry x="2265" y="385" width="150" height="32" as="geometry" />
+      </mxCell>
+    </position>
+    <mxCell id="44" value="" style="ibis;noEdgeStyle=1;orthogonal=1;" parent="1" source="41" target="43" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="2142" y="380.5" />
+          <mxPoint x="2218" y="401" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="45" value="" style="ibis;noEdgeStyle=1;orthogonal=1;" parent="1" source="41" target="33" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="2142" y="391.5" />
+          <mxPoint x="2218" y="457.5" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <position title="Agent" structure="" note="" id="46">
+      <mxCell style="position" parent="1" vertex="1">
+        <mxGeometry x="1410" y="323" width="100" height="32" as="geometry" />
+      </mxCell>
+    </position>
+    <mxCell id="47" value="" style="ibis;noEdgeStyle=1;orthogonal=1;" parent="1" source="15" target="46" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="1324" y="288.75" />
+          <mxPoint x="1398" y="339" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <pro title="MetaGPT" description="" id="48">
+      <mxCell style="pro" parent="1" vertex="1">
+        <mxGeometry x="1720" y="386" width="100" height="32" as="geometry" />
+      </mxCell>
+    </pro>
+    <mxCell id="49" value="" style="ibis;noEdgeStyle=1;orthogonal=1;" parent="1" source="46" target="48" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="1522" y="351.7999999999999" />
+          <mxPoint x="1598" y="402" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <pro title="Communicative Agents for Software Development" description="" id="50">
+      <mxCell style="pro" parent="1" vertex="1">
+        <mxGeometry x="1610" y="262" width="320" height="32" as="geometry" />
+      </mxCell>
+    </pro>
+    <mxCell id="51" value="" style="ibis;noEdgeStyle=1;orthogonal=1;" parent="1" source="46" target="50" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="1526" y="338.99999999999994" />
+          <mxPoint x="1598" y="278" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <pro title="GPTeam" description="" id="52">
+      <mxCell style="pro" parent="1" vertex="1">
+        <mxGeometry x="1720" y="324" width="100" height="32" as="geometry" />
+      </mxCell>
+    </pro>
+    <mxCell id="53" value="" style="ibis;noEdgeStyle=1;orthogonal=1;" parent="1" source="46" target="52" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="1524" y="345.3999999999999" />
+          <mxPoint x="1598" y="340" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <position title="本地部署开源模型" structure="" note="" id="54">
+      <mxCell style="position" parent="1" vertex="1">
+        <mxGeometry x="555" y="63.25" width="120" height="32" as="geometry" />
+      </mxCell>
+    </position>
+    <mxCell id="55" value="" style="ibis;noEdgeStyle=1;orthogonal=1;" parent="1" source="3" target="54" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="382" y="224.625" />
+          <mxPoint x="458" y="79.25" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <con title="逻辑能力不足" description="" id="56">
+      <mxCell style="con" parent="1" vertex="1">
+        <mxGeometry x="1720" y="138" width="100" height="32" as="geometry" />
+      </mxCell>
+    </con>
+    <mxCell id="57" value="" style="ibis;noEdgeStyle=1;orthogonal=1;" parent="1" source="54" target="56" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="772" y="71.91666666666667" />
+          <mxPoint x="810" />
+          <mxPoint x="1080" />
+          <mxPoint x="1080" />
+          <mxPoint x="1360" />
+          <mxPoint x="1360" />
+          <mxPoint x="1560" />
+          <mxPoint x="1598" y="148.5" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <con title="Few-shot prompting无效" description="" id="58">
+      <mxCell style="con" parent="1" vertex="1">
+        <mxGeometry x="1690" y="200" width="160" height="32" as="geometry" />
+      </mxCell>
+    </con>
+    <mxCell id="59" value="" style="ibis;noEdgeStyle=1;orthogonal=1;" parent="1" source="54" target="58" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="774" y="79.25" />
+          <mxPoint x="810" y="30" />
+          <mxPoint x="1080" y="30" />
+          <mxPoint x="1080" y="30" />
+          <mxPoint x="1360" y="30" />
+          <mxPoint x="1360" y="30" />
+          <mxPoint x="1560" y="30" />
+          <mxPoint x="1598" y="210.5" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="60" value="" style="ibis;noEdgeStyle=1;orthogonal=1;" parent="1" source="46" target="56" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="1522" y="326.2" />
+          <mxPoint x="1598" y="159.5" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="61" value="" style="ibis;noEdgeStyle=1;orthogonal=1;" parent="1" source="46" target="58" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="1524" y="332.59999999999997" />
+          <mxPoint x="1598" y="221.5" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <issue title="擅长？" description="" id="62">
+      <mxCell style="issue" parent="1" vertex="1">
+        <mxGeometry x="245" y="354" width="100" height="32" as="geometry" />
+      </mxCell>
+    </issue>
+    <mxCell id="63" value="" style="ibis;noEdgeStyle=1;orthogonal=1;" parent="1" source="2" target="62" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="136" y="370" />
+          <mxPoint x="208" y="370" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <position title="text transformation, expansion, summarisation" structure="" note="" id="66">
+      <mxCell style="position" parent="1" vertex="1">
+        <mxGeometry x="470" y="276" width="290" height="32" as="geometry" />
+      </mxCell>
+    </position>
+    <mxCell id="67" value="" style="ibis;noEdgeStyle=1;orthogonal=1;" parent="1" source="62" target="66" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="382" y="364.5" />
+          <mxPoint x="458" y="292" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <issue title="对应代码任务?" description="" id="68">
+      <mxCell style="issue" parent="1" vertex="1">
+        <mxGeometry x="895" y="276" width="100" height="32" as="geometry" />
+      </mxCell>
+    </issue>
+    <mxCell id="69" value="" style="ibis;noEdgeStyle=1;orthogonal=1;" parent="1" source="66" target="68" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="772" y="292" />
+          <mxPoint x="848" y="292" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <issue title="对应代码任务?" description="" id="70">
+      <mxCell style="issue" parent="1" vertex="1">
+        <mxGeometry x="895" y="460" width="100" height="32" as="geometry" />
+      </mxCell>
+    </issue>
+    <mxCell id="72" value="" style="ibis;noEdgeStyle=1;orthogonal=1;" parent="1" source="68" target="19" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="1042" y="292" />
+          <mxPoint x="1116" y="350.75" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <issue title="Context window不够长" description="" id="75">
+      <mxCell style="issue" parent="1" vertex="1">
+        <mxGeometry x="220" y="416" width="150" height="32" as="geometry" />
+      </mxCell>
+    </issue>
+    <mxCell id="76" value="" style="ibis;noEdgeStyle=1;orthogonal=1;" parent="1" source="2" target="75" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="134" y="380" />
+          <mxPoint x="208" y="432" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <issue title="评价与选择" description="" id="77">
+      <mxCell style="issue" parent="1" vertex="1">
+        <mxGeometry x="895" y="60" width="100" height="32" as="geometry" />
+      </mxCell>
+    </issue>
+    <mxCell id="78" value="" style="ibis;noEdgeStyle=1;orthogonal=1;" parent="1" source="54" target="77" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="772" y="86.58333333333333" />
+          <mxPoint x="848" y="76" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <position title="WizardCoder &gt; Code Llama" structure="" note="" id="79">
+      <mxCell style="position" parent="1" vertex="1">
+        <mxGeometry x="1130" y="160.5" width="180" height="32" as="geometry" />
+      </mxCell>
+    </position>
+    <mxCell id="80" value="" style="ibis;noEdgeStyle=1;orthogonal=1;" parent="1" source="77" target="79" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="1042" y="76" />
+          <mxPoint x="1118" y="176.5" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="81" value="" style="ibis;noEdgeStyle=1;orthogonal=1;" parent="1" source="7" target="19" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="774" y="230" />
+          <mxPoint x="810" y="184" />
+          <mxPoint x="1080" y="184" />
+          <mxPoint x="1118" y="343.4166666666667" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="84" value="" style="ibis;noEdgeStyle=1;orthogonal=1;" parent="1" source="35" target="21" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="1942" y="464" />
+          <mxPoint x="2018" y="318.5" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <position title="review, evaluation and feedback" structure="" note="" id="86">
+      <mxCell style="position" parent="1" vertex="1">
+        <mxGeometry x="515" y="400" width="200" height="32" as="geometry" />
+      </mxCell>
+    </position>
+    <mxCell id="87" value="" style="ibis;noEdgeStyle=1;orthogonal=1;" parent="1" source="62" target="86" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="382" y="375.5" />
+          <mxPoint x="458" y="416" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="88" value="" style="ibis;noEdgeStyle=1;orthogonal=1;" parent="1" source="86" target="70" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="772" y="416" />
+          <mxPoint x="848" y="476" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <position title="Parallel Context Windows (PCW)" structure="" note="" id="89">
+      <mxCell style="position" parent="1" vertex="1">
+        <mxGeometry x="510" y="462" width="210" height="32" as="geometry" />
+      </mxCell>
+    </position>
+    <mxCell id="90" value="" style="ibis;noEdgeStyle=1;orthogonal=1;" parent="1" source="75" target="89" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="384" y="432" />
+          <mxPoint x="458" y="478" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <pro title="无需训练" description="" id="91">
+      <mxCell style="pro" parent="1" vertex="1">
+        <mxGeometry x="895" y="522" width="100" height="32" as="geometry" />
+      </mxCell>
+    </pro>
+    <mxCell id="92" value="" style="ibis;noEdgeStyle=1;orthogonal=1;" parent="1" source="89" target="91" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="772" y="472.5" />
+          <mxPoint x="848" y="538" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <position title="Position Interpolation (PI)" structure="" note="" id="93">
+      <mxCell style="position" parent="1" vertex="1">
+        <mxGeometry x="535" y="524" width="160" height="32" as="geometry" />
+      </mxCell>
+    </position>
+    <mxCell id="94" value="" style="ibis;noEdgeStyle=1;orthogonal=1;" parent="1" source="75" target="93" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="382" y="439.3333333333333" />
+          <mxPoint x="458" y="540" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <pro title="少量FT" description="" id="95">
+      <mxCell style="pro" parent="1" vertex="1">
+        <mxGeometry x="895" y="646" width="100" height="32" as="geometry" />
+      </mxCell>
+    </pro>
+    <mxCell id="96" value="" style="ibis;noEdgeStyle=1;orthogonal=1;" parent="1" source="93" target="95" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="772" y="545.5" />
+          <mxPoint x="848" y="662" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="97" value="" style="ibis;noEdgeStyle=1;orthogonal=1;" parent="1" source="75" target="11" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="382" y="424.6666666666667" />
+          <mxPoint x="420" y="184" />
+          <mxPoint x="810" y="184" />
+          <mxPoint x="848" y="132.5" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <issue title="长代码和代码库上的性能？" description="" id="98">
+      <mxCell style="issue" parent="1" vertex="1">
+        <mxGeometry x="860" y="584" width="170" height="32" as="geometry" />
+      </mxCell>
+    </issue>
+    <mxCell id="99" value="" style="ibis;noEdgeStyle=1;orthogonal=1;" parent="1" source="89" target="98" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="772" y="483.5" />
+          <mxPoint x="848" y="594.5" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="100" value="" style="ibis;noEdgeStyle=1;orthogonal=1;" parent="1" source="93" target="98" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="772" y="534.5" />
+          <mxPoint x="848" y="605.5" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <issue title="hallucination" description="" id="101">
+      <mxCell style="issue" parent="1" vertex="1">
+        <mxGeometry x="245" y="478" width="100" height="32" as="geometry" />
+      </mxCell>
+    </issue>
+    <mxCell id="102" value="" style="ibis;noEdgeStyle=1;orthogonal=1;" parent="1" source="2" target="101" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="132" y="390" />
+          <mxPoint x="208" y="494" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <issue title="API准确度" description="" id="103">
+      <mxCell style="issue" parent="1" vertex="1">
+        <mxGeometry x="565" y="593" width="100" height="32" as="geometry" />
+      </mxCell>
+    </issue>
+    <mxCell id="104" value="" style="ibis;noEdgeStyle=1;orthogonal=1;" parent="1" source="101" target="103" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="382" y="494" />
+          <mxPoint x="458" y="609" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <position title="ROME, MEMIT" structure="" note="" id="105">
+      <mxCell style="position" parent="1" vertex="1">
+        <mxGeometry x="895" y="708" width="100" height="32" as="geometry" />
+      </mxCell>
+    </position>
+    <mxCell id="106" value="" style="ibis;noEdgeStyle=1;orthogonal=1;" parent="1" source="103" target="105" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="772" y="609" />
+          <mxPoint x="848" y="724" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <issue title="Exemplar retrieval" description="Evaluate Models 代码理解" id="109">
+      <mxCell style="issue" parent="1" vertex="1">
+        <mxGeometry x="2540" y="447" width="120" height="32" as="geometry" />
+      </mxCell>
+    </issue>
+    <mxCell id="110" value="" style="ibis;noEdgeStyle=1;orthogonal=1;" parent="1" source="33" target="109" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="2462" y="463" />
+          <mxPoint x="2538" y="463" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+  </root>
+</mxGraphModel>
