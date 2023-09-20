@@ -195,8 +195,16 @@ for (let i = 0; i < selectedCells.length-1; i++) {
 				{
 					var encoder = new mxCodec();
 					var node = encoder.encode(graph.getModel());
-					mxUtils.popup("The following data saved:\n"+mxUtils.getPrettyXml(node), true);
 					localStorage.setItem(projectName, mxUtils.getXml(node));
+					let xml = mxUtils.getPrettyXml(node);
+					var tempInput = document.createElement("textarea");
+				    tempInput.style = "position: absolute; left: -1000px; top: -1000px";
+				    tempInput.value = xml;
+				    document.body.appendChild(tempInput);
+				    tempInput.select();
+				    document.execCommand("copy");
+				    document.body.removeChild(tempInput);
+					mxUtils.popup("The following data saved locally and copied to clipboard:\n"+xml, true);
 				}));
 				document.getElementById("controls").appendChild(mxUtils.button('Del selection', function()
 				{
