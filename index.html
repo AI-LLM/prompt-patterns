@@ -891,6 +891,15 @@ for (let i = 0; i < selectedCells.length-1; i++) {
 				else
 				{
 					if (cell.isEdge()){
+						//nevigate to edge's source and target
+						let btn = mxUtils.button("⌖"+cell.source.value.getAttribute("title"), function(){
+							graph.scrollCellToVisible(cell.source);
+						});
+						div.appendChild(btn);
+						btn = mxUtils.button("⌖"+cell.target.value.getAttribute("title"), function(){
+							graph.scrollCellToVisible(cell.target);
+						});
+						div.appendChild(btn);
 						return;
 					}
 					//move the wndEdit to the right of the cell
